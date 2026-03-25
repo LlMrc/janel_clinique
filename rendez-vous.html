@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Prendre Rendez-vous – Clinique Dentaire 31</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue-deep: #0a3d6b;
+      --blue-mid: #1565c0;
+      --blue-light: #1e88e5;
+      --blue-sky: #e8f4fd;
+      --white: #ffffff;
+      --off-white: #f7fafd;
+      --text-dark: #0d1b2a;
+      --text-muted: #5a7a99;
+      --gold: #f0c040;
+      --green: #2e7d32;
+      --green-light: #e8f5e9;
+      --error: #c62828;
+      --error-light: #ffebee;
+      --radius: 18px;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--off-white);
+      color: var(--text-dark);
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 60px;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(21,101,192,0.1);
+      box-shadow: 0 2px 24px rgba(10,61,107,0.06);
+      animation: slideDown 0.6s ease both;
+    }
+    @keyframes slideDown { from { transform: translateY(-60px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+    .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .nav-logo .tooth-icon {
+      width: 46px; height: 46px; background: var(--blue-mid);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 14px rgba(21,101,192,0.35);
+    }
+    .nav-logo .tooth-icon svg { width: 24px; height: 24px; fill: white; }
+    .nav-logo .brand span:first-child {
+      display: block; font-family: 'Playfair Display', serif;
+      font-size: 1.1rem; font-weight: 700; color: var(--blue-deep);
+    }
+    .nav-logo .brand span:last-child {
+      display: block; font-size: 0.75rem; color: var(--text-muted);
+    }
+    .nav-back {
+      display: flex; align-items: center; gap: 8px;
+      color: var(--blue-mid); text-decoration: none;
+      font-size: 0.88rem; font-weight: 600;
+      padding: 10px 20px; border-radius: 50px;
+      border: 1.5px solid rgba(21,101,192,0.25);
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .nav-back:hover { background: var(--blue-sky); border-color: var(--blue-mid); }
+
+    /* ─── HERO STRIP ─── */
+    .page-hero {
+      background: linear-gradient(140deg, var(--blue-deep) 0%, var(--blue-mid) 60%, var(--blue-light) 100%);
+      padding: 130px 60px 60px;
+      position: relative; overflow: hidden;
+      text-align: center;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(circle at 50% 60%, rgba(255,255,255,0.07) 0%, transparent 60%);
+    }
+    .page-hero .ring {
+      position: absolute; border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .ring1 { width: 380px; height: 380px; top: -120px; left: -80px; }
+    .ring2 { width: 260px; height: 260px; bottom: -60px; right: 60px; }
+
+    .page-hero-content { position: relative; z-index: 2; animation: fadeUp 0.8s ease 0.1s both; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25);
+      color: white; padding: 6px 18px; border-radius: 50px;
+      font-size: 0.78rem; font-weight: 500; letter-spacing: 0.06em;
+      text-transform: uppercase; margin-bottom: 20px;
+    }
+    .page-hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: white; font-weight: 700; line-height: 1.2;
+      margin-bottom: 14px;
+    }
+    .page-hero h1 em { font-style: normal; color: var(--gold); }
+    .page-hero p {
+      color: rgba(255,255,255,0.8); font-size: 1rem;
+      font-weight: 300; max-width: 480px; margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* ─── STEPS BAR ─── */
+    .steps-bar {
+      background: white;
+      border-bottom: 1px solid rgba(21,101,192,0.08);
+      padding: 0 60px;
+      display: flex; justify-content: center;
+      box-shadow: 0 4px 20px rgba(10,61,107,0.05);
+    }
+    .steps {
+      display: flex; align-items: center; gap: 0;
+      max-width: 600px; width: 100%; padding: 20px 0;
+    }
+    .step {
+      display: flex; align-items: center; gap: 10px;
+      flex: 1; position: relative;
+    }
+    .step:not(:last-child)::after {
+      content: '';
+      position: absolute; right: 0; top: 50%;
+      transform: translateY(-50%);
+      width: calc(100% - 90px); height: 2px;
+      background: #e0e8f0; left: 90px;
+      z-index: 0;
+    }
+    .step.done:not(:last-child)::after { background: var(--blue-mid); }
+
+    .step-num {
+      width: 36px; height: 36px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 0.85rem; flex-shrink: 0;
+      border: 2px solid #d0e4f7;
+      background: white; color: var(--text-muted);
+      transition: all 0.3s; z-index: 1; position: relative;
+    }
+    .step.active .step-num {
+      background: var(--blue-mid); border-color: var(--blue-mid);
+      color: white; box-shadow: 0 4px 12px rgba(21,101,192,0.35);
+    }
+    .step.done .step-num {
+      background: var(--blue-deep); border-color: var(--blue-deep); color: white;
+    }
+    .step-label {
+      font-size: 0.78rem; font-weight: 600;
+      color: var(--text-muted); white-space: nowrap;
+    }
+    .step.active .step-label { color: var(--blue-mid); }
+    .step.done .step-label { color: var(--blue-deep); }
+
+    /* ─── MAIN LAYOUT ─── */
+    .main-wrap {
+      max-width: 1100px; margin: 0 auto;
+      padding: 60px 24px 100px;
+      display: grid; grid-template-columns: 1fr 360px; gap: 36px;
+      align-items: start;
+    }
+
+    /* ─── FORM CARD ─── */
+    .form-card {
+      background: white; border-radius: 24px;
+      box-shadow: 0 8px 40px rgba(10,61,107,0.08);
+      border: 1px solid rgba(21,101,192,0.07);
+      overflow: hidden;
+      animation: fadeUp 0.7s ease 0.2s both;
+    }
+
+    .form-section {
+      padding: 36px 40px;
+      border-bottom: 1px solid rgba(21,101,192,0.07);
+    }
+    .form-section:last-child { border-bottom: none; }
+
+    .form-section-title {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 28px;
+    }
+    .form-section-title .fs-icon {
+      width: 40px; height: 40px; background: var(--blue-sky);
+      border-radius: 12px; display: flex; align-items: center;
+      justify-content: center; font-size: 1.1rem; flex-shrink: 0;
+    }
+    .form-section-title h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem; font-weight: 700; color: var(--blue-deep);
+    }
+    .form-section-title p { font-size: 0.8rem; color: var(--text-muted); margin-top: 2px; }
+
+    /* ─── FORM FIELDS ─── */
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 18px; }
+    .form-row.single { grid-template-columns: 1fr; }
+    .form-row.triple { grid-template-columns: 1fr 1fr 1fr; }
+
+    .field { display: flex; flex-direction: column; gap: 7px; }
+    .field label {
+      font-size: 0.82rem; font-weight: 600;
+      color: var(--blue-deep); letter-spacing: 0.02em;
+    }
+    .field label .req { color: var(--blue-light); margin-left: 2px; }
+
+    .field input, .field select, .field textarea {
+      width: 100%; padding: 13px 16px;
+      border: 1.5px solid #d5e6f5; border-radius: 12px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.92rem; color: var(--text-dark);
+      background: white; outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      appearance: none;
+    }
+    .field input:focus, .field select:focus, .field textarea:focus {
+      border-color: var(--blue-mid);
+      box-shadow: 0 0 0 4px rgba(21,101,192,0.1);
+    }
+    .field input::placeholder, .field textarea::placeholder { color: #b0c4d8; }
+    .field textarea { resize: vertical; min-height: 100px; }
+    .field select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235a7a99' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 16px center;
+      padding-right: 42px; cursor: pointer;
+    }
+
+    .field input.invalid { border-color: var(--error); }
+    .field .err-msg { font-size: 0.75rem; color: var(--error); display: none; }
+    .field.has-error .err-msg { display: block; }
+    .field.has-error input, .field.has-error select { border-color: var(--error); box-shadow: 0 0 0 3px rgba(198,40,40,0.08); }
+
+    /* ─── SERVICE CHIPS ─── */
+    .service-chips {
+      display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px;
+    }
+    .chip {
+      padding: 9px 18px; border-radius: 50px;
+      border: 1.5px solid #d5e6f5; background: white;
+      font-size: 0.83rem; font-weight: 500; color: var(--text-muted);
+      cursor: pointer; transition: all 0.18s; user-select: none;
+    }
+    .chip:hover { border-color: var(--blue-light); color: var(--blue-mid); background: var(--blue-sky); }
+    .chip.selected {
+      background: var(--blue-mid); border-color: var(--blue-mid);
+      color: white; box-shadow: 0 4px 12px rgba(21,101,192,0.25);
+    }
+
+    /* ─── CALENDAR ─── */
+    .calendar-wrap { margin-top: 4px; }
+    .cal-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 16px;
+    }
+    .cal-header span {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600; color: var(--blue-deep); font-size: 1rem;
+    }
+    .cal-nav {
+      background: none; border: 1.5px solid #d5e6f5; border-radius: 8px;
+      width: 34px; height: 34px; cursor: pointer; display: flex;
+      align-items: center; justify-content: center;
+      color: var(--blue-mid); font-size: 1rem; transition: all 0.18s;
+    }
+    .cal-nav:hover { background: var(--blue-sky); border-color: var(--blue-mid); }
+
+    .cal-grid {
+      display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px;
+    }
+    .cal-day-name {
+      text-align: center; font-size: 0.72rem; font-weight: 600;
+      color: var(--text-muted); padding: 6px 0; text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .cal-day {
+      text-align: center; padding: 9px 4px; border-radius: 10px;
+      font-size: 0.88rem; cursor: pointer; font-weight: 500;
+      color: var(--text-dark); transition: all 0.15s; border: 1.5px solid transparent;
+    }
+    .cal-day:hover:not(.disabled):not(.empty) {
+      background: var(--blue-sky); border-color: var(--blue-light); color: var(--blue-mid);
+    }
+    .cal-day.selected {
+      background: var(--blue-mid); color: white;
+      box-shadow: 0 4px 12px rgba(21,101,192,0.3);
+    }
+    .cal-day.today { border-color: var(--blue-light); color: var(--blue-mid); font-weight: 700; }
+    .cal-day.disabled { color: #c8d8e8; cursor: not-allowed; }
+    .cal-day.empty { cursor: default; }
+
+    /* ─── TIME SLOTS ─── */
+    .time-slots {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 16px;
+    }
+    .slot {
+      padding: 10px 6px; border-radius: 10px; text-align: center;
+      border: 1.5px solid #d5e6f5; font-size: 0.83rem; font-weight: 600;
+      color: var(--text-muted); cursor: pointer; transition: all 0.18s;
+    }
+    .slot:hover:not(.taken) { border-color: var(--blue-mid); color: var(--blue-mid); background: var(--blue-sky); }
+    .slot.selected { background: var(--blue-mid); border-color: var(--blue-mid); color: white; box-shadow: 0 4px 10px rgba(21,101,192,0.25); }
+    .slot.taken { background: #f5f5f5; color: #bbb; cursor: not-allowed; text-decoration: line-through; border-color: #eee; }
+
+    /* ─── SUBMIT BTN ─── */
+    .submit-area { padding: 28px 40px; background: var(--blue-sky); }
+    .submit-btn {
+      width: 100%; padding: 18px;
+      background: linear-gradient(135deg, var(--blue-mid), var(--blue-deep));
+      color: white; border: none; border-radius: 14px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem; font-weight: 700; cursor: pointer;
+      box-shadow: 0 8px 24px rgba(21,101,192,0.35);
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+    }
+    .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(21,101,192,0.45); }
+    .submit-btn:active { transform: translateY(0); }
+
+    /* ─── SUCCESS STATE ─── */
+    .success-overlay {
+      display: none;
+      position: fixed; inset: 0; z-index: 200;
+      background: rgba(10,61,107,0.55); backdrop-filter: blur(6px);
+      align-items: center; justify-content: center;
+    }
+    .success-overlay.show { display: flex; animation: fadeIn 0.3s ease; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    .success-card {
+      background: white; border-radius: 28px;
+      padding: 52px 48px; max-width: 480px; width: 90%;
+      text-align: center; box-shadow: 0 24px 60px rgba(0,0,0,0.2);
+      animation: popUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    }
+    @keyframes popUp { from { transform: scale(0.7); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+    .success-icon {
+      width: 80px; height: 80px; background: var(--green-light);
+      border-radius: 50%; margin: 0 auto 24px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.2rem;
+    }
+    .success-card h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.7rem; color: var(--blue-deep); margin-bottom: 12px;
+    }
+    .success-card p { color: var(--text-muted); line-height: 1.7; font-size: 0.95rem; }
+    .success-summary {
+      background: var(--blue-sky); border-radius: 14px;
+      padding: 18px 20px; margin: 24px 0; text-align: left;
+    }
+    .success-summary .ss-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 6px 0; font-size: 0.85rem;
+      border-bottom: 1px solid rgba(21,101,192,0.08);
+    }
+    .success-summary .ss-row:last-child { border-bottom: none; }
+    .success-summary .ss-row span:first-child { color: var(--text-muted); }
+    .success-summary .ss-row span:last-child { font-weight: 600; color: var(--blue-deep); }
+    .success-back {
+      display: inline-block; margin-top: 8px;
+      background: var(--blue-mid); color: white;
+      padding: 14px 36px; border-radius: 50px;
+      font-weight: 700; font-size: 0.92rem; text-decoration: none;
+      box-shadow: 0 6px 20px rgba(21,101,192,0.3);
+      transition: background 0.2s;
+    }
+    .success-back:hover { background: var(--blue-deep); }
+
+    /* ─── SIDEBAR ─── */
+    .sidebar { display: flex; flex-direction: column; gap: 20px; animation: fadeUp 0.7s ease 0.35s both; }
+
+    .info-card {
+      background: white; border-radius: 20px;
+      border: 1px solid rgba(21,101,192,0.08);
+      box-shadow: 0 4px 20px rgba(10,61,107,0.06);
+      overflow: hidden;
+    }
+    .info-card-header {
+      background: linear-gradient(135deg, var(--blue-deep), var(--blue-mid));
+      padding: 20px 24px;
+    }
+    .info-card-header h3 {
+      font-family: 'Playfair Display', serif;
+      color: white; font-size: 1rem; margin-bottom: 2px;
+    }
+    .info-card-header p { color: rgba(255,255,255,0.7); font-size: 0.78rem; }
+
+    .info-card-body { padding: 20px 24px; }
+
+    .info-item {
+      display: flex; align-items: flex-start; gap: 12px; margin-bottom: 16px;
+    }
+    .info-item:last-child { margin-bottom: 0; }
+    .info-item .ii-icon {
+      width: 38px; height: 38px; background: var(--blue-sky);
+      border-radius: 10px; display: flex; align-items: center;
+      justify-content: center; font-size: 1rem; flex-shrink: 0;
+    }
+    .info-item .ii-text span { font-size: 0.72rem; color: var(--text-muted); display: block; }
+    .info-item .ii-text strong { font-size: 0.9rem; color: var(--blue-deep); display: block; margin-top: 1px; }
+
+    .hours-mini { width: 100%; }
+    .hm-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 9px 0; border-bottom: 1px solid rgba(21,101,192,0.07);
+      font-size: 0.84rem;
+    }
+    .hm-row:last-child { border-bottom: none; }
+    .hm-row .hm-day { color: var(--blue-deep); font-weight: 600; }
+    .hm-row .hm-time { color: var(--text-muted); font-size: 0.8rem; }
+    .hm-row .hm-closed { color: #e53935; font-size: 0.8rem; font-weight: 600; }
+
+    .tip-card {
+      background: linear-gradient(135deg, #fff8e1, #fff3cd);
+      border: 1px solid rgba(240,192,64,0.3);
+      border-radius: 16px; padding: 20px;
+    }
+    .tip-card h4 {
+      font-size: 0.88rem; font-weight: 700; color: #7a5500;
+      margin-bottom: 10px; display: flex; align-items: center; gap: 8px;
+    }
+    .tip-card ul { list-style: none; }
+    .tip-card ul li {
+      font-size: 0.82rem; color: #7a6200; padding: 5px 0;
+      display: flex; align-items: flex-start; gap: 8px; line-height: 1.5;
+    }
+    .tip-card ul li::before { content: '✓'; color: var(--gold); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+
+    /* ─── WHATSAPP FLOAT ─── */
+    .wa-float {
+      position: fixed; bottom: 28px; right: 28px; z-index: 999;
+      width: 58px; height: 58px; border-radius: 50%;
+      background: #25d366; display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 6px 24px rgba(37,211,102,0.5);
+      text-decoration: none; animation: waPulse 2.5s infinite; transition: transform 0.2s;
+    }
+    .wa-float:hover { transform: scale(1.1); animation: none; }
+    .wa-float svg { width: 30px; height: 30px; fill: white; }
+    @keyframes waPulse {
+      0%, 100% { box-shadow: 0 6px 24px rgba(37,211,102,0.5); }
+      50% { box-shadow: 0 6px 32px rgba(37,211,102,0.75), 0 0 0 10px rgba(37,211,102,0.1); }
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      nav { padding: 12px 20px; }
+      .nav-logo .brand span:last-child { display: none; }
+      .nav-back { padding: 8px 12px; font-size: 0.75rem; }
+      .main-wrap { grid-template-columns: 1fr; padding: 30px 20px 80px; }
+      .page-hero { padding: 100px 20px 40px; }
+      .page-hero h1 { font-size: 2.2rem; }
+      .steps-bar { padding: 0 16px; }
+      .step:not(:last-child)::after { left: 45px; width: calc(100% - 50px); }
+      .form-section { padding: 24px 20px; }
+      .submit-area { padding: 24px 20px; }
+      .form-row, .form-row.triple { grid-template-columns: 1fr; }
+      .time-slots { grid-template-columns: repeat(2, 1fr); }
+      .success-card { padding: 32px 24px; }
+      .cal-day { padding: 6px 2px; font-size: 0.8rem; }
+    }
+    
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="nav-logo">
+    <div class="tooth-icon">
+      <svg viewBox="0 0 24 24"><path d="M12 2C9.5 2 7.5 3.2 6.3 5c-.6 1-1.1 2.3-1.2 3.7-.2 2 .4 4.2 1.4 6.5.7 1.7 1.5 4 1.5 6.3 0 .3.2.5.5.5s.5-.2.5-.5c0-1 .3-2.6.7-3.7.4-1 1-1.8 2.3-1.8s1.9.8 2.3 1.8c.4 1.1.7 2.7.7 3.7 0 .3.2.5.5.5s.5-.2.5-.5c0-2.3.8-4.6 1.5-6.3 1-2.3 1.6-4.5 1.4-6.5-.1-1.4-.6-2.7-1.2-3.7C16.5 3.2 14.5 2 12 2z"/></svg>
+    </div>
+    <div class="brand">
+      <span>Clinique Dentaire 31</span>
+      <span>Votre santé bucco-dentaire</span>
+    </div>
+  </a>
+  <a href="/" class="nav-back">← Retour à l'accueil</a>
+</nav>
+
+<!-- HERO -->
+<div class="page-hero">
+  <div class="ring ring1"></div>
+  <div class="ring ring2"></div>
+  <div class="page-hero-content">
+    <div class="hero-badge">✦ Prise de rendez-vous en ligne</div>
+    <h1>Réservez votre <em>consultation</em></h1>
+    <p>Choisissez votre service, sélectionnez une date et une heure. Notre équipe vous confirmera rapidement.</p>
+  </div>
+</div>
+
+<!-- STEPS -->
+<div class="steps-bar">
+  <div class="steps">
+    <div class="step active" id="step1-indicator">
+      <div class="step-num">1</div>
+      <span class="step-label">Informations</span>
+    </div>
+    <div class="step" id="step2-indicator">
+      <div class="step-num">2</div>
+      <span class="step-label">Service</span>
+    </div>
+    <div class="step" id="step3-indicator">
+      <div class="step-num">3</div>
+      <span class="step-label">Date & Heure</span>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main-wrap">
+
+  <!-- FORM -->
+  <form class="form-card" id="rdv-form"   action="https://formspree.io/f/mqegzdvw"
+  method="POST">
+    <input type="hidden" name="_subject" value="Nouveau rendez-vous en ligne – Clinique Dentaire 31">
+
+    <!-- SECTION 1 : PATIENT -->
+    <div class="form-section">
+      <div class="form-section-title">
+        <div class="fs-icon">👤</div>
+        <div>
+          <h2>Vos informations</h2>
+          <p>Renseignez vos coordonnées personnelles</p>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="field" id="field-prenom">
+          <label>Prénom <span class="req">*</span></label>
+          <input type="text" id="prenom" name="prenom" placeholder="Jean" oninput="validate('prenom')"/>
+          <span class="err-msg">Ce champ est requis</span>
+        </div>
+        <div class="field" id="field-nom">
+          <label>Nom <span class="req">*</span></label>
+          <input type="text" id="nom" name="nom" placeholder="Dupont" oninput="validate('nom')"/>
+          <span class="err-msg">Ce champ est requis</span>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="field" id="field-tel">
+          <label>Téléphone <span class="req">*</span></label>
+          <input type="tel" id="tel" name="tel" placeholder="555-1234" oninput="validate('tel')"/>
+          <span class="err-msg">Numéro invalide</span>
+        </div>
+        <div class="field" id="field-email">
+          <label>Email</label>
+          <input type="email" id="email" name="email" placeholder="jean@email.com"/>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="field">
+          <label>Êtes-vous un nouveau patient ?</label>
+          <select id="nouveau" name="nouveau_patient">
+            <option value="">Sélectionner…</option>
+            <option value="oui">Oui, première visite</option>
+            <option value="non">Non, patient existant</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Assurance</label>
+          <select id="assurance" name="assurance">
+            <option value="">Sélectionner…</option>
+            <option>Oui, j'ai une assurance</option>
+            <option>Non, sans assurance</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 2 : SERVICE -->
+    <div class="form-section">
+      <div class="form-section-title">
+        <div class="fs-icon">🦷</div>
+        <div>
+          <h2>Type de consultation</h2>
+          <p>Sélectionnez le service souhaité</p>
+        </div>
+      </div>
+
+      <div class="service-chips" id="service-chips">
+        <div class="chip" onclick="selectChip(this)">Consultation</div>
+        <div class="chip" onclick="selectChip(this)">Blanchiment</div>
+        <div class="chip" onclick="selectChip(this)">Détartrage</div>
+        <div class="chip" onclick="selectChip(this)">Extraction</div>
+        <div class="chip" onclick="selectChip(this)">Traitement de Canal</div>
+        <div class="chip" onclick="selectChip(this)">Couronne & Pont</div>
+        <div class="chip" onclick="selectChip(this)">Prothèse</div>
+        <div class="chip" onclick="selectChip(this)">Orthodontie</div>
+        <div class="chip" onclick="selectChip(this)">Radiographie</div>
+        <div class="chip" onclick="selectChip(this)">Urgence</div>
+        <div class="chip" onclick="selectChip(this)">Autre</div>
+      </div>
+
+      <div class="form-row single" style="margin-top:20px;">
+        <div class="field">
+          <label>Message / Précisions</label>
+          <textarea id="message" name="message" placeholder="Décrivez brièvement votre problème ou toute information utile pour notre équipe…"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 3 : DATE & HEURE -->
+    <div class="form-section">
+      <div class="form-section-title">
+        <div class="fs-icon">📅</div>
+        <div>
+          <h2>Date & Heure</h2>
+          <p>Choisissez votre créneau préféré</p>
+        </div>
+      </div>
+
+      <!-- CALENDAR -->
+      <div class="calendar-wrap">
+        <div class="cal-header">
+          <button class="cal-nav" onclick="changeMonth(-1)">‹</button>
+          <span id="cal-month-label"></span>
+          <button class="cal-nav" onclick="changeMonth(1)">›</button>
+        </div>
+        <div class="cal-grid" id="cal-grid"></div>
+      </div>
+
+      <!-- TIME SLOTS -->
+      <div id="time-section" style="display:none; margin-top:24px;">
+        <label style="font-size:0.82rem;font-weight:600;color:var(--blue-deep);display:block;margin-bottom:4px;">
+          Heure disponible <span style="color:var(--blue-light)">*</span>
+        </label>
+        <div class="time-slots" id="time-slots"></div>
+      </div>
+    </div>
+
+    <!-- SUBMIT -->
+    <div class="submit-area">
+      <button type="button" class="submit-btn" onclick="submitForm()">
+        <span>✓</span> Confirmer le rendez-vous
+      </button>
+    </div>
+  </form>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+
+    <div class="info-card">
+      <div class="info-card-header">
+        <h3>📍 Nous trouver</h3>
+        <p>2, impasse Chavanne, Fragneau ville Delmas 75</p>
+      </div>
+      <div class="info-card-body">
+        <div class="info-item">
+          <div class="ii-icon">🏥</div>
+          <div class="ii-text">
+            <span>Nom</span>
+            <strong>Clinique Dentaire 31</strong>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="ii-icon">📞</div>
+          <div class="ii-text">
+            <span>Téléphone</span>
+            <strong>4767-9797</strong>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="ii-icon">✉️</div>
+          <div class="ii-text">
+            <span>Email</span>
+            <strong>cliniquedentaire31@gmail.com</strong>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="ii-icon">💬</div>
+          <div class="ii-text">
+            <span>WhatsApp</span>
+            <strong><a href="https://wa.me/47679797" style="color:var(--blue-mid);text-decoration:none;">Écrire sur WhatsApp</a></strong>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-card">
+      <div class="info-card-header">
+        <h3>🕐 Horaires d'ouverture</h3>
+        <p>Nous sommes là pour vous</p>
+      </div>
+      <div class="info-card-body">
+        <table class="hours-mini" style="width:100%">
+          <tr class="hm-row"><td class="hm-day">Lundi – Vendredi</td><td class="hm-time">8h00 – 16h00</td></tr>
+          <tr class="hm-row"><td class="hm-day">Samedi</td><td class="hm-time">9h00 – 14h00</td></tr>
+          <tr class="hm-row"><td class="hm-day">Dimanche</td><td class="hm-closed">Fermé</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="tip-card">
+      <h4>💡 Conseils avant votre visite</h4>
+      <ul>
+        <li>Apportez votre carte d'assurance si disponible</li>
+        <li>Arrivez 10 minutes avant votre rendez-vous</li>
+        <li>Notez vos symptômes ou questions à l'avance</li>
+        <li>En cas d'urgence, appelez directement le 4767-9797</li>
+      </ul>
+    </div>
+
+  </aside>
+</div>
+
+<!-- SUCCESS OVERLAY -->
+<div class="success-overlay" id="success-overlay">
+  <div class="success-card">
+    <div class="success-icon">✅</div>
+    <h2>Rendez-vous envoyé !</h2>
+    <p>Votre demande a bien été reçue. Notre équipe vous contactera très prochainement pour confirmer votre créneau.</p>
+    <div class="success-summary" id="success-summary"></div>
+    <a href="index.html" class="success-back">← Retour à l'accueil</a>
+  </div>
+</div>
+
+<!-- WHATSAPP -->
+<a href="https://wa.me/47679797" target="_blank" rel="noopener" class="wa-float" title="WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+</a>
+
+<script>
+  // ── CALENDAR ──
+  const MONTHS_FR = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
+  const DAYS_FR = ['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'];
+  const TAKEN_SLOTS = ['8:00','10:30','14:00']; // mock taken slots
+
+  let currentDate = new Date();
+  let viewYear = currentDate.getFullYear();
+  let viewMonth = currentDate.getMonth();
+  let selectedDate = null;
+  let selectedTime = null;
+  let selectedService = null;
+
+  function renderCalendar() {
+    document.getElementById('cal-month-label').textContent = MONTHS_FR[viewMonth] + ' ' + viewYear;
+    const grid = document.getElementById('cal-grid');
+    grid.innerHTML = '';
+
+    DAYS_FR.forEach(d => {
+      const dn = document.createElement('div');
+      dn.className = 'cal-day-name'; dn.textContent = d;
+      grid.appendChild(dn);
+    });
+
+    const firstDay = new Date(viewYear, viewMonth, 1).getDay();
+    const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
+    const today = new Date();
+
+    for (let i = 0; i < firstDay; i++) {
+      const empty = document.createElement('div');
+      empty.className = 'cal-day empty';
+      grid.appendChild(empty);
+    }
+
+    for (let d = 1; d <= daysInMonth; d++) {
+      const dayEl = document.createElement('div');
+      dayEl.className = 'cal-day';
+      dayEl.textContent = d;
+
+      const thisDate = new Date(viewYear, viewMonth, d);
+      const dayOfWeek = thisDate.getDay();
+      const isPast = thisDate < new Date(today.getFullYear(), today.getMonth(), today.getDate());
+      const isSunday = dayOfWeek === 0;
+
+      if (isPast || isSunday) {
+        dayEl.classList.add('disabled');
+      } else {
+        if (thisDate.toDateString() === today.toDateString()) dayEl.classList.add('today');
+        if (selectedDate && thisDate.toDateString() === selectedDate.toDateString()) dayEl.classList.add('selected');
+        dayEl.onclick = () => selectDate(thisDate, dayEl);
+      }
+      grid.appendChild(dayEl);
+    }
+  }
+
+  function selectDate(date, el) {
+    selectedDate = date;
+    selectedTime = null;
+    document.querySelectorAll('.cal-day.selected').forEach(e => e.classList.remove('selected'));
+    el.classList.add('selected');
+    renderTimeSlots(date.getDay());
+    updateSteps();
+  }
+
+  function renderTimeSlots(dayOfWeek) {
+    const section = document.getElementById('time-section');
+    const container = document.getElementById('time-slots');
+    section.style.display = 'block';
+    container.innerHTML = '';
+
+    // Sat: 9-14, others: 8-16
+    const isSat = dayOfWeek === 6;
+    const startH = isSat ? 9 : 8;
+    const endH = isSat ? 14 : 16;
+    const times = [];
+    for (let h = startH; h < endH; h++) {
+      times.push(h + ':00');
+      if (h + 0.5 < endH) times.push(h + ':30');
+    }
+
+    times.forEach(t => {
+      const slot = document.createElement('div');
+      slot.className = 'slot';
+      slot.textContent = t;
+      if (TAKEN_SLOTS.includes(t)) {
+        slot.classList.add('taken');
+      } else {
+        slot.onclick = () => {
+          document.querySelectorAll('.slot.selected').forEach(s => s.classList.remove('selected'));
+          slot.classList.add('selected');
+          selectedTime = t;
+          updateSteps();
+        };
+      }
+      container.appendChild(slot);
+    });
+  }
+
+  function changeMonth(dir) {
+    viewMonth += dir;
+    if (viewMonth > 11) { viewMonth = 0; viewYear++; }
+    if (viewMonth < 0) { viewMonth = 11; viewYear--; }
+    renderCalendar();
+  }
+
+  // ── CHIPS ──
+  function selectChip(el) {
+    document.querySelectorAll('.chip.selected').forEach(c => c.classList.remove('selected'));
+    el.classList.add('selected');
+    selectedService = el.textContent;
+    updateSteps();
+  }
+
+  // ── STEPS ──
+  function updateSteps() {
+    const s1 = document.getElementById('step1-indicator');
+    const s2 = document.getElementById('step2-indicator');
+    const s3 = document.getElementById('step3-indicator');
+    const hasPerson = document.getElementById('prenom').value && document.getElementById('nom').value;
+    if (hasPerson) { s1.classList.add('done'); s1.classList.remove('active'); s2.classList.add('active'); }
+    if (selectedService) { s2.classList.add('done'); s2.classList.remove('active'); s3.classList.add('active'); }
+    if (selectedDate && selectedTime) { s3.classList.add('done'); }
+  }
+
+  // ── VALIDATION ──
+  function validate(id) {
+    const val = document.getElementById(id).value.trim();
+    const field = document.getElementById('field-' + id);
+    if (!field) return true;
+    if (!val) { field.classList.add('has-error'); return false; }
+    if (id === 'tel' && !/^[\d\s\-+()]{6,}$/.test(val)) { field.classList.add('has-error'); return false; }
+    field.classList.remove('has-error');
+    updateSteps();
+    return true;
+  }
+
+  // ── SUBMIT ──
+  async function submitForm() {
+    const ok1 = validate('prenom');
+    const ok2 = validate('nom');
+    const ok3 = validate('tel');
+
+    if (!ok1 || !ok2 || !ok3) {
+      alert('Veuillez remplir les champs obligatoires (Prénom, Nom, Téléphone).');
+      return;
+    }
+
+    if (!selectedDate || !selectedTime) {
+      alert('Veuillez sélectionner une date et une heure sur le calendrier.');
+      return;
+    }
+
+    const prenom = document.getElementById('prenom').value.trim();
+    const nom = document.getElementById('nom').value.trim();
+    const tel = document.getElementById('tel').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const nouveau = document.getElementById('nouveau').value;
+    const assurance = document.getElementById('assurance').value;
+    const message = document.getElementById('message').value.trim();
+    
+    const dateStr = selectedDate.toLocaleDateString('fr-FR', { weekday:'long', day:'numeric', month:'long', year:'numeric' });
+    const service = selectedService || 'Non précisé';
+    const time = selectedTime;
+
+    // Build payload for Formspree
+    const formData = {
+      _subject: "Nouveau rendez-vous en ligne – Clinique Dentaire 31",
+      prenom,
+      nom,
+      telephone: tel,
+      email,
+      nouveau_patient: nouveau,
+      assurance,
+      service,
+      date: dateStr,
+      heure: time,
+      message
+    };
+
+    const submitBtn = document.querySelector('.submit-btn');
+    const originalText = submitBtn.innerHTML;
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = 'Envoi en cours...';
+
+    try {
+      const formAction = document.getElementById('rdv-form').action;
+      const response = await fetch(formAction, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+
+      if (response.ok) {
+        // Success UI
+        document.getElementById('success-summary').innerHTML = `
+          <div class="ss-row"><span>Patient</span><span>${prenom} ${nom}</span></div>
+          <div class="ss-row"><span>Téléphone</span><span>${tel}</span></div>
+          <div class="ss-row"><span>Service</span><span>${service}</span></div>
+          <div class="ss-row"><span>Date</span><span>${dateStr}</span></div>
+          <div class="ss-row"><span>Heure</span><span>${time}</span></div>
+        `;
+        document.getElementById('success-overlay').classList.add('show');
+        document.getElementById('rdv-form').reset();
+      } else {
+        alert("Erreur lors de l'envoi. Veuillez réessayer ou nous contacter par téléphone.");
+      }
+    } catch (err) {
+      alert("Erreur réseau. Veuillez vérifier votre connexion.");
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = originalText;
+    }
+  }
+
+  // ── INIT ──
+  renderCalendar();
+</script>
+</body>
+</html>

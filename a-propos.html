@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>À propos – Clinique Dentaire 31</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --blue-deep: #0a3d6b; --blue-mid: #1565c0; --blue-light: #1e88e5;
+      --blue-sky: #e8f4fd; --white: #ffffff; --off-white: #f7fafd;
+      --text-dark: #0d1b2a; --text-muted: #5a7a99; --gold: #f0c040; --radius: 18px;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--off-white); color: var(--text-dark); overflow-x: hidden; }
+
+    /* NAV */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 18px 60px; background: rgba(255,255,255,0.93); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(21,101,192,0.1); box-shadow: 0 2px 24px rgba(10,61,107,0.06); animation: slideDown 0.6s ease both; }
+    @keyframes slideDown { from { transform: translateY(-60px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .nav-logo .tooth-icon { width: 46px; height: 46px; background: var(--blue-mid); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 14px rgba(21,101,192,0.35); }
+    .nav-logo .tooth-icon svg { width: 24px; height: 24px; fill: white; }
+    .nav-logo .brand span:first-child { display: block; font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--blue-deep); }
+    .nav-logo .brand span:last-child { display: block; font-size: 0.75rem; color: var(--text-muted); }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--text-dark); font-size: 0.88rem; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--blue-light); }
+    .nav-right { display: flex; align-items: center; gap: 14px; }
+    .nav-cta { background: var(--blue-mid); color: white; padding: 10px 24px; border-radius: 50px; font-size: 0.88rem; font-weight: 600; text-decoration: none; transition: background 0.2s; box-shadow: 0 4px 16px rgba(21,101,192,0.3); }
+    .nav-cta:hover { background: var(--blue-deep); }
+    .social-links { display: flex; gap: 8px; }
+    .social-links a { width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: transform 0.2s; }
+    .social-links a:hover { transform: translateY(-2px); }
+    .social-links a svg { width: 16px; height: 16px; }
+    .social-tiktok { background: #010101; } .social-facebook { background: #1877f2; }
+    .social-instagram { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90%); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px; background: none; border: none; }
+    .hamburger span { display: block; width: 24px; height: 2.5px; background: var(--blue-deep); border-radius: 4px; transition: all 0.3s ease; }
+    .hamburger.open span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
+    .mobile-menu { display: none; position: fixed; top: 80px; left: 0; right: 0; background: white; z-index: 99; flex-direction: column; box-shadow: 0 12px 32px rgba(10,61,107,0.1); padding: 16px 24px 24px; border-bottom: 2px solid var(--blue-sky); }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { padding: 14px 0; font-size: 1rem; font-weight: 600; color: var(--text-dark); text-decoration: none; border-bottom: 1px solid var(--blue-sky); transition: color 0.2s; }
+    .mobile-menu a:hover { color: var(--blue-mid); }
+    .mobile-menu .mob-cta { margin-top: 14px; background: var(--blue-mid); color: white !important; padding: 14px; border-radius: 12px; text-align: center; font-weight: 700; border-bottom: none !important; }
+
+    /* HERO */
+    .page-hero { background: linear-gradient(140deg, var(--blue-deep) 0%, var(--blue-mid) 55%, var(--blue-light) 100%); padding: 130px 60px 80px; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; position: relative; overflow: hidden; }
+    .page-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 70% 50%, rgba(255,255,255,0.07) 0%, transparent 55%); }
+    .ring { position: absolute; border-radius: 50%; border: 1px solid rgba(255,255,255,0.1); }
+    .r1 { width: 400px; height: 400px; top: -100px; right: -80px; }
+    .r2 { width: 220px; height: 220px; bottom: -50px; left: 120px; }
+    .hero-text { position: relative; z-index: 2; animation: fadeUp 0.8s ease both; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25); color: white; padding: 6px 18px; border-radius: 50px; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 20px; }
+    .hero-text h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 3.5vw, 2.8rem); color: white; font-weight: 700; line-height: 1.2; margin-bottom: 16px; }
+    .hero-text h1 em { font-style: italic; color: var(--gold); }
+    .hero-text p { color: rgba(255,255,255,0.8); font-size: 1rem; font-weight: 300; line-height: 1.75; margin-bottom: 32px; }
+    .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn-w { background: white; color: var(--blue-deep); padding: 13px 28px; border-radius: 50px; font-weight: 700; font-size: 0.9rem; text-decoration: none; box-shadow: 0 6px 18px rgba(0,0,0,0.15); transition: transform 0.2s; }
+    .btn-w:hover { transform: translateY(-2px); }
+    .btn-o { border: 2px solid rgba(255,255,255,0.5); color: white; padding: 13px 28px; border-radius: 50px; font-weight: 600; font-size: 0.9rem; text-decoration: none; transition: background 0.2s; }
+    .btn-o:hover { background: rgba(255,255,255,0.12); border-color: white; }
+    .hero-visual { position: relative; z-index: 2; animation: fadeUp 0.8s ease 0.2s both; }
+    .clinic-card { background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); backdrop-filter: blur(16px); border-radius: 24px; padding: 32px; }
+    .clinic-card h3 { font-family: 'Playfair Display', serif; color: white; font-size: 1.2rem; margin-bottom: 20px; }
+    .val-item { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+    .val-item .vi { width: 36px; height: 36px; background: rgba(255,255,255,0.18); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
+    .val-item p { color: rgba(255,255,255,0.85); font-size: 0.88rem; line-height: 1.4; }
+    .val-item p strong { color: white; display: block; font-size: 0.92rem; }
+
+    /* MISSION */
+    .mission-section { max-width: 1100px; margin: 0 auto; padding: 80px 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 70px; align-items: center; }
+    .mission-text .label { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--blue-light); margin-bottom: 12px; }
+    .mission-text h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.7rem, 2.8vw, 2.4rem); color: var(--blue-deep); line-height: 1.2; margin-bottom: 18px; }
+    .mission-text p { color: var(--text-muted); font-size: 0.97rem; line-height: 1.8; margin-bottom: 16px; font-weight: 300; }
+    .mission-values { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .mv-card { background: white; border-radius: 16px; padding: 22px; border: 1px solid rgba(21,101,192,0.08); box-shadow: 0 4px 16px rgba(10,61,107,0.05); transition: transform 0.2s; }
+    .mv-card:hover { transform: translateY(-3px); }
+    .mv-card .mv-icon { font-size: 1.6rem; margin-bottom: 10px; }
+    .mv-card h4 { font-size: 0.9rem; font-weight: 700; color: var(--blue-deep); margin-bottom: 5px; }
+    .mv-card p { font-size: 0.8rem; color: var(--text-muted); line-height: 1.5; }
+
+    /* TEAM */
+    .team-section { background: var(--blue-deep); padding: 80px 60px; }
+    .team-header { text-align: center; margin-bottom: 56px; }
+    .team-header .label { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+    .team-header h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.7rem, 3vw, 2.4rem); color: white; margin-bottom: 12px; }
+    .team-header p { color: rgba(255,255,255,0.7); max-width: 480px; margin: 0 auto; font-size: 0.97rem; line-height: 1.7; }
+    .team-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 24px; max-width: 1100px; margin: 0 auto; }
+    .team-card { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.14); border-radius: 22px; padding: 32px 28px; text-align: center; transition: background 0.2s, transform 0.2s; }
+    .team-card:hover { background: rgba(255,255,255,0.14); transform: translateY(-4px); }
+    .avatar { width: 80px; height: 80px; border-radius: 50%; margin: 0 auto 18px; display: flex; align-items: center; justify-content: center; font-size: 2rem; background: rgba(255,255,255,0.15); border: 3px solid rgba(240,192,64,0.4); }
+    .team-card h3 { font-family: 'Playfair Display', serif; color: white; font-size: 1.1rem; margin-bottom: 4px; }
+    .team-card .role { color: var(--gold); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 12px; display: block; }
+    .team-card p { color: rgba(255,255,255,0.68); font-size: 0.84rem; line-height: 1.6; }
+
+    /* STATS */
+    .stats-section { background: var(--blue-sky); padding: 64px 60px; }
+    .stats-inner { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; text-align: center; }
+    .stat-item .big { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; color: var(--blue-deep); line-height: 1; }
+    .stat-item .lbl { font-size: 0.85rem; color: var(--text-muted); margin-top: 6px; font-weight: 500; }
+
+    /* ENGAGEMENT */
+    .engage-section { max-width: 1100px; margin: 0 auto; padding: 80px 24px; }
+    .engage-header { text-align: center; margin-bottom: 52px; }
+    .engage-header .label { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--blue-light); margin-bottom: 12px; }
+    .engage-header h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.6rem, 2.8vw, 2.2rem); color: var(--blue-deep); }
+    .engage-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .engage-card { background: white; border-radius: 20px; padding: 32px; border: 1px solid rgba(21,101,192,0.08); box-shadow: 0 4px 20px rgba(10,61,107,0.05); transition: transform 0.2s; position: relative; overflow: hidden; }
+    .engage-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--blue-mid), var(--blue-light)); }
+    .engage-card:hover { transform: translateY(-4px); }
+    .engage-card .ec-icon { font-size: 2.2rem; margin-bottom: 16px; }
+    .engage-card h3 { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: var(--blue-deep); margin-bottom: 10px; }
+    .engage-card p { font-size: 0.86rem; color: var(--text-muted); line-height: 1.7; }
+
+    /* CTA */
+    .cta-section { background: linear-gradient(135deg, var(--blue-deep), var(--blue-mid)); padding: 72px 60px; text-align: center; }
+    .cta-section h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.7rem, 3vw, 2.4rem); color: white; margin-bottom: 14px; }
+    .cta-section p { color: rgba(255,255,255,0.75); margin-bottom: 32px; font-size: 1rem; max-width: 480px; margin-left: auto; margin-right: auto; }
+    .cta-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .cta-btn-w { background: white; color: var(--blue-deep); padding: 15px 36px; border-radius: 50px; font-weight: 700; font-size: 0.95rem; text-decoration: none; box-shadow: 0 6px 20px rgba(0,0,0,0.15); transition: transform 0.2s; }
+    .cta-btn-w:hover { transform: translateY(-2px); }
+    .cta-btn-o { border: 2px solid rgba(255,255,255,0.5); color: white; padding: 15px 36px; border-radius: 50px; font-weight: 600; font-size: 0.95rem; text-decoration: none; transition: background 0.2s; }
+    .cta-btn-o:hover { background: rgba(255,255,255,0.12); border-color: white; }
+
+    /* FOOTER */
+    footer { background: var(--blue-deep); border-top: 1px solid rgba(255,255,255,0.08); color: rgba(255,255,255,0.65); padding: 36px 60px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+    footer .foot-logo { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: white; font-weight: 700; }
+    footer p { font-size: 0.82rem; }
+    .foot-links { display: flex; gap: 20px; }
+    .foot-links a { color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.82rem; transition: color 0.2s; }
+    .foot-links a:hover { color: var(--gold); }
+
+    .wa-float { position: fixed; bottom: 28px; right: 28px; z-index: 999; width: 58px; height: 58px; border-radius: 50%; background: #25d366; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 24px rgba(37,211,102,0.5); text-decoration: none; animation: waPulse 2.5s infinite; transition: transform 0.2s; }
+    .wa-float:hover { transform: scale(1.1); animation: none; }
+    .wa-float svg { width: 30px; height: 30px; fill: white; }
+    @keyframes waPulse { 0%,100% { box-shadow: 0 6px 24px rgba(37,211,102,0.5); } 50% { box-shadow: 0 6px 32px rgba(37,211,102,0.75), 0 0 0 10px rgba(37,211,102,0.1); } }
+
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 900px) {
+      nav { padding: 16px 24px; }
+      .nav-links { display: none; }
+      .nav-right-desktop { display: none !important; }
+      .hamburger { display: flex; }
+      
+      .page-hero { 
+        grid-template-columns: 1fr; 
+        padding: 110px 24px 60px; 
+        text-align: center; 
+        gap: 40px; 
+      }
+      .page-hero::before { background: radial-gradient(circle at 50% 30%, rgba(255,255,255,0.07) 0%, transparent 70%); }
+      .hero-btns { justify-content: center; }
+      .hero-visual { order: -1; }
+      .clinic-card { padding: 24px; }
+
+      .mission-section { 
+        grid-template-columns: 1fr; 
+        padding: 60px 24px; 
+        gap: 40px; 
+      }
+      .mission-values { grid-template-columns: 1fr; }
+
+      .team-section { padding: 60px 24px; }
+      .team-grid { grid-template-columns: 1fr; }
+
+      .stats-section { padding: 48px 24px; }
+      .stats-inner { grid-template-columns: repeat(2, 1fr); }
+
+      .engage-grid { grid-template-columns: 1fr; }
+      
+      .cta-section { padding: 56px 24px; }
+      footer { padding: 28px 20px; flex-direction: column; text-align: center; }
+    }
+    
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">
+    <div class="tooth-icon"><svg viewBox="0 0 24 24"><path d="M12 2C9.5 2 7.5 3.2 6.3 5c-.6 1-1.1 2.3-1.2 3.7-.2 2 .4 4.2 1.4 6.5.7 1.7 1.5 4 1.5 6.3 0 .3.2.5.5.5s.5-.2.5-.5c0-1 .3-2.6.7-3.7.4-1 1-1.8 2.3-1.8s1.9.8 2.3 1.8c.4 1.1.7 2.7.7 3.7 0 .3.2.5.5.5s.5-.2.5-.5c0-2.3.8-4.6 1.5-6.3 1-2.3 1.6-4.5 1.4-6.5-.1-1.4-.6-2.7-1.2-3.7C16.5 3.2 14.5 2 12 2z"/></svg></div>
+    <div class="brand"><span>Clinique Dentaire 31</span><span>Votre santé bucco-dentaire</span></div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="services.html">Services</a></li>
+    <li><a href="a-propos.html" class="active">À propos</a></li>
+    <li><a href="index.html#horaires">Horaires</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+  <div class="nav-right-desktop">
+    <div class="social-links">
+      <a href="https://www.tiktok.com/@cliniquedentaire_31" target="_blank" class="social-tiktok"><svg viewBox="0 0 24 24" fill="white"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z"/></svg></a>
+      <a href="https://www.facebook.com/cliniquedentaire31" target="_blank" class="social-facebook"><svg viewBox="0 0 24 24" fill="white"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+      <a href="https://www.instagram.com/cliniquedentaire31" target="_blank" class="social-instagram"><svg viewBox="0 0 24 24" fill="white"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+    </div>
+    <a href="rendez-vous.html" class="nav-cta">📅 Rendez-vous</a>
+  </div>
+  <button class="hamburger" id="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="index.html">🏠 Accueil</a>
+  <a href="services.html">🦷 Nos Services</a>
+  <a href="index.html#horaires" onclick="closeMenu()">🕐 Horaires & Contact</a>
+</div>
+
+<!-- HERO -->
+<div class="page-hero">
+  <div class="ring r1"></div><div class="ring r2"></div>
+  <div class="hero-text">
+    <div class="hero-badge">✦ Notre histoire</div>
+    <h1>Une clinique fondée sur la <em>confiance</em> et l'excellence</h1>
+    <p>Clinique Dentaire 31 est un cabinet de soins bucco-dentaires dédié à offrir des traitements de haute qualité dans un cadre chaleureux, moderne et humain. Notre mission : votre sourire en bonne santé.</p>
+    <div class="hero-btns">
+      <a href="rendez-vous.html" class="btn-w">📅 Prendre rendez-vous</a>
+      <a href="services.html" class="btn-o">Nos services →</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="clinic-card">
+      <h3>🏥 Nos engagements</h3>
+      <div class="val-item"><div class="vi">❤️</div><p><strong>Bienveillance</strong>Chaque patient est accueilli avec respect et attention</p></div>
+      <div class="val-item"><div class="vi">🎓</div><p><strong>Excellence</strong>Des soins de qualité avec les meilleures techniques</p></div>
+      <div class="val-item"><div class="vi">🛡️</div><p><strong>Transparence</strong>Des tarifs clairs et des assurances acceptées</p></div>
+      <div class="val-item"><div class="vi">⚡</div><p><strong>Réactivité</strong>Urgences prises en charge rapidement</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- MISSION -->
+<div class="mission-section">
+  <div class="mission-text reveal">
+    <div class="label">Notre mission</div>
+    <h2>Prendre soin de vous, c'est notre vocation</h2>
+    <p>Chez Clinique Dentaire 31, nous croyons que chaque patient mérite des soins dentaires de qualité, accessibles et humains. Nous combinons expertise médicale, technologies modernes et écoute attentive pour vous offrir la meilleure expérience possible.</p>
+    <p>Notre équipe s'engage à vous accompagner à chaque étape de votre parcours de santé bucco-dentaire, de la consultation de routine aux traitements les plus complexes.</p>
+  </div>
+  <div class="mission-values reveal">
+    <div class="mv-card">
+      <div class="mv-icon">🔬</div>
+      <h4>Technologie moderne</h4>
+      <p>Équipements de pointe pour un diagnostic précis et des soins efficaces.</p>
+    </div>
+    <div class="mv-card">
+      <div class="mv-icon">👨‍👩‍👧</div>
+      <h4>Soins familiaux</h4>
+      <p>Accueil de toute la famille, des enfants dès 3 ans aux seniors.</p>
+    </div>
+    <div class="mv-card">
+      <div class="mv-icon">🛡️</div>
+      <h4>Assurances acceptées</h4>
+      <p>Nous facilitons votre prise en charge avec toutes les assurances.</p>
+    </div>
+    <div class="mv-card">
+      <div class="mv-icon">⏰</div>
+      <h4>Horaires flexibles</h4>
+      <p>Ouverts du lundi au samedi pour s'adapter à votre emploi du temps.</p>
+    </div>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats-section">
+  <div class="stats-inner">
+    <div class="stat-item reveal"><div class="big">11</div><div class="lbl">Services dentaires</div></div>
+    <div class="stat-item reveal"><div class="big">6j</div><div class="lbl">Jours d'ouverture</div></div>
+    <div class="stat-item reveal"><div class="big">✓</div><div class="lbl">Assurances acceptées</div></div>
+    <div class="stat-item reveal"><div class="big">😊</div><div class="lbl">Patients satisfaits</div></div>
+  </div>
+</div>
+
+<!-- TEAM -->
+<div class="team-section">
+  <div class="team-header reveal">
+    <div class="label">Notre équipe</div>
+    <h2>Des professionnels à votre service</h2>
+    <p>Une équipe passionnée et qualifiée, dédiée à votre santé bucco-dentaire.</p>
+  </div>
+  <div class="team-grid">
+    <div class="team-card reveal">
+      <div class="avatar">👨‍⚕️</div>
+      <h3>Dr. Janel</h3>
+      <span class="role">Directeur & Chirurgien-Dentiste</span>
+      <p>Fondateur de la clinique, spécialiste en soins généraux, endodontie et prothèses. Passionné par la relation patient et l'excellence des soins.</p>
+    </div>
+    <div class="team-card reveal">
+      <div class="avatar">👩‍⚕️</div>
+      <h3>Équipe soignante</h3>
+      <span class="role">Assistants dentaires</span>
+      <p>Nos assistants qualifiés assurent le bon déroulement de chaque consultation, votre confort et l'hygiène irréprochable de notre cabinet.</p>
+    </div>
+    <div class="team-card reveal">
+      <div class="avatar">🗂️</div>
+      <h3>Équipe administrative</h3>
+      <span class="role">Accueil & Coordination</span>
+      <p>Disponibles pour vous accueillir, gérer vos rendez-vous et vous accompagner dans vos démarches d'assurance avec le sourire.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ENGAGEMENTS -->
+<div class="engage-section">
+  <div class="engage-header reveal">
+    <div class="label">Nos engagements qualité</div>
+    <h2>Ce qui nous distingue</h2>
+  </div>
+  <div class="engage-grid">
+    <div class="engage-card reveal">
+      <div class="ec-icon">🧼</div>
+      <h3>Hygiène & Stérilisation</h3>
+      <p>Protocoles stricts de stérilisation et d'hygiène pour garantir un environnement sûr à chaque consultation. Votre sécurité est notre priorité absolue.</p>
+    </div>
+    <div class="engage-card reveal">
+      <div class="ec-icon">💬</div>
+      <h3>Écoute & Accompagnement</h3>
+      <p>Nous prenons le temps d'écouter vos inquiétudes, d'expliquer chaque traitement et de vous accompagner dans vos décisions de santé.</p>
+    </div>
+    <div class="engage-card reveal">
+      <div class="ec-icon">💰</div>
+      <h3>Tarifs Transparents</h3>
+      <p>Devis clairs avant tout traitement, assurances acceptées, et solutions adaptées à votre budget. Pas de mauvaises surprises.</p>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-section">
+  <h2>Venez nous rencontrer</h2>
+  <p>Prenez rendez-vous dès aujourd'hui et découvrez une clinique dentaire qui prend soin de vous comme vous le méritez.</p>
+  <div class="cta-btns">
+    <a href="rendez-vous.html" class="cta-btn-w">📅 Prendre rendez-vous</a>
+    <a href="tel:47679797" class="cta-btn-o">📞 4767-9797</a>
+  </div>
+</div>
+
+<footer>
+  <div class="foot-logo">Clinique Dentaire 31</div>
+  <p style="font-size:0.75rem; margin-bottom: 8px;">2, impasse Chavanne, Fragneau ville Delmas 75</p>
+  <div class="foot-links">
+    <a href="index.html">Accueil</a>
+    <a href="services.html">Services</a>
+    <a href="rendez-vous.html">Rendez-vous</a>
+  </div>
+  <p>© 2026 Clinique Dentaire 31</p>
+</footer>
+
+<a href="https://wa.me/47679797" target="_blank" class="wa-float"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg></a>
+
+<script>
+  function toggleMenu() { document.getElementById('hamburger').classList.toggle('open'); document.getElementById('mobile-menu').classList.toggle('open'); }
+  function closeMenu() { document.getElementById('hamburger').classList.remove('open'); document.getElementById('mobile-menu').classList.remove('open'); }
+  const obs = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }), { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Clinique Dentaire 31 – Gardez votre sourire</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue-deep: #0a3d6b;
+      --blue-mid: #1565c0;
+      --blue-light: #1e88e5;
+      --blue-sky: #e8f4fd;
+      --white: #ffffff;
+      --off-white: #f7fafd;
+      --text-dark: #0d1b2a;
+      --text-muted: #5a7a99;
+      --gold: #f0c040;
+      --radius: 18px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--white);
+      color: var(--text-dark);
+      overflow-x: hidden;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 60px;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(21,101,192,0.1);
+      box-shadow: 0 2px 24px rgba(10,61,107,0.06);
+      animation: slideDown 0.7s ease both;
+    }
+    @keyframes slideDown { from { transform: translateY(-60px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+    .nav-logo {
+      display: flex; align-items: center; gap: 12px; text-decoration: none;
+    }
+    .nav-logo .tooth-icon {
+      width: 46px; height: 46px; background: var(--blue-mid);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 14px rgba(21,101,192,0.35);
+    }
+    .nav-logo .tooth-icon svg { width: 24px; height: 24px; fill: white; }
+    .nav-logo .brand { line-height: 1.15; }
+    .nav-logo .brand span:first-child {
+      display: block; font-family: 'Playfair Display', serif;
+      font-size: 1.1rem; font-weight: 700; color: var(--blue-deep);
+    }
+    .nav-logo .brand span:last-child {
+      display: block; font-size: 0.75rem; color: var(--text-muted); letter-spacing: 0.04em;
+    }
+
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a {
+      text-decoration: none; color: var(--text-dark);
+      font-size: 0.88rem; font-weight: 500; letter-spacing: 0.03em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--blue-light); }
+
+    .nav-cta {
+      background: var(--blue-mid); color: white; padding: 10px 24px;
+      border-radius: 50px; font-size: 0.88rem; font-weight: 600;
+      text-decoration: none; transition: background 0.2s, transform 0.2s;
+      box-shadow: 0 4px 16px rgba(21,101,192,0.3);
+    }
+    .nav-cta:hover { background: var(--blue-deep); transform: translateY(-1px); }
+
+    /* ─── SOCIAL ICONS ─── */
+    .social-links {
+      display: flex; align-items: center; gap: 10px;
+    }
+    .social-links a {
+      width: 36px; height: 36px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      transition: transform 0.2s, box-shadow 0.2s;
+      flex-shrink: 0;
+    }
+    .social-links a:hover { transform: translateY(-3px) scale(1.1); box-shadow: 0 6px 16px rgba(0,0,0,0.18); }
+    .social-links a svg { width: 18px; height: 18px; display: block; }
+    .social-tiktok { background: #010101; }
+    .social-facebook { background: #1877f2; }
+    .social-instagram { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90%); }
+
+    /* ─── WHATSAPP FLOAT ─── */
+    .wa-float {
+      position: fixed; bottom: 28px; right: 28px; z-index: 999;
+      width: 60px; height: 60px; border-radius: 50%;
+      background: #25d366;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 6px 24px rgba(37,211,102,0.5);
+      text-decoration: none;
+      animation: waPulse 2.5s infinite;
+      transition: transform 0.2s;
+    }
+    .wa-float:hover { transform: scale(1.12); animation: none; box-shadow: 0 8px 28px rgba(37,211,102,0.65); }
+    .wa-float svg { width: 32px; height: 32px; fill: white; }
+    @keyframes waPulse {
+      0%, 100% { box-shadow: 0 6px 24px rgba(37,211,102,0.5); }
+      50% { box-shadow: 0 6px 32px rgba(37,211,102,0.75), 0 0 0 10px rgba(37,211,102,0.1); }
+    }
+    .wa-tooltip {
+      position: absolute; right: 70px; top: 50%; transform: translateY(-50%);
+      background: #1a1a1a; color: white; font-size: 0.78rem; font-weight: 600;
+      padding: 6px 12px; border-radius: 8px; white-space: nowrap;
+      opacity: 0; pointer-events: none; transition: opacity 0.2s;
+    }
+    .wa-float:hover .wa-tooltip { opacity: 1; }
+
+    /* ─── FOOTER SOCIAL ─── */
+    .footer-social { display: flex; flex-direction: column; align-items: flex-end; gap: 12px; }
+    .footer-social-links { display: flex; gap: 10px; }
+    .footer-social-links a {
+      width: 40px; height: 40px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      border: 1px solid rgba(255,255,255,0.2);
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .footer-social-links a:hover { transform: translateY(-3px); border-color: var(--gold); }
+    .footer-social-links a svg { width: 18px; height: 18px; fill: white; }
+
+    /* ─── HERO ─── */
+    #hero {
+      min-height: 100vh;
+      background: linear-gradient(140deg, var(--blue-deep) 0%, var(--blue-mid) 55%, var(--blue-light) 100%);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 120px 60px 80px;
+      position: relative; overflow: hidden;
+    }
+      #hero {
+        min-height: 100vh;
+        background: linear-gradient(140deg, var(--blue-deep) 0%, var(--blue-mid) 55%, var(--blue-light) 100%);
+        display: flex; align-items: center; justify-content: space-between;
+        padding: 120px 60px 80px;
+        position: relative; overflow: hidden;
+      }
+
+    #hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(140deg, var(--blue-deep) 0%, var(--blue-mid) 55%, var(--blue-light) 100%);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    #hero::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: url('images/hero.png') center center / cover no-repeat;
+      opacity: 0.10;
+      z-index: 2;
+      pointer-events: none;
+    }
+    
+
+    /* Decorative circles */
+    .hero-circle {
+      position: absolute; border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+    .hc1 { width: 420px; height: 420px; top: -80px; right: -60px; }
+    .hc2 { width: 260px; height: 260px; top: 60px; right: 80px; }
+    .hc3 { width: 180px; height: 180px; bottom: 60px; left: 20px; background: rgba(255,255,255,0.04); }
+
+    .hero-content {
+      position: relative; z-index: 3;
+      max-width: 560px;
+      animation: fadeUp 0.9s ease 0.2s both;
+    }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25);
+      color: white; padding: 6px 16px; border-radius: 50px;
+      font-size: 0.78rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase;
+      margin-bottom: 28px;
+      margin-top: 28px;
+    }
+    .hero-badge::before { content: '✦'; font-size: 0.6rem; opacity: 0.8; }
+
+    .hero-content h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 4.5vw, 3.6rem);
+      font-weight: 700; color: white; line-height: 1.15;
+      margin-bottom: 20px;
+    }
+    .hero-content h1 em {
+      font-style: normal; color: var(--gold);
+    }
+
+    .hero-content p {
+      color: rgba(255,255,255,0.82); font-size: 1.05rem;
+      line-height: 1.7; margin-bottom: 40px; font-weight: 300;
+    }
+
+    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+    .btn-primary {
+      background: white; color: var(--blue-deep);
+      padding: 14px 32px; border-radius: 50px;
+      font-weight: 700; font-size: 0.95rem;
+      text-decoration: none; transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.18);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(0,0,0,0.22); }
+
+    .btn-outline {
+      border: 2px solid rgba(255,255,255,0.55); color: white;
+      padding: 14px 32px; border-radius: 50px;
+      font-weight: 600; font-size: 0.95rem;
+      text-decoration: none; transition: background 0.2s, border-color 0.2s;
+    }
+    .btn-outline:hover { background: rgba(255,255,255,0.12); border-color: white; }
+
+    .hero-visual {
+      position: relative; z-index: 3;
+      animation: fadeUp 0.9s ease 0.45s both;
+    }
+    .hero-card {
+      background: rgba(255,255,255,0.13);
+      border: 1px solid rgba(255,255,255,0.22);
+      backdrop-filter: blur(16px);
+      border-radius: 28px;
+      padding: 36px;
+      width: 320px;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.2);
+    }
+    .smile-icon { font-size: 4rem; margin-bottom: 16px; display: block; }
+    .hero-card h3 {
+      font-family: 'Playfair Display', serif;
+      color: white; font-size: 1.35rem; margin-bottom: 10px;
+    }
+    .hero-card p { color: rgba(255,255,255,0.75); font-size: 0.88rem; line-height: 1.6; }
+
+    .hero-phone-pill {
+      margin-top: 24px;
+      display: flex; align-items: center; gap: 12px;
+      background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 50px; padding: 12px 20px;
+    }
+    .hero-phone-pill .ph-icon {
+      width: 36px; height: 36px; background: var(--gold);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; flex-shrink: 0;
+    }
+    .hero-phone-pill span { color: rgba(255,255,255,0.75); font-size: 0.75rem; display: block; }
+    .hero-phone-pill strong { color: white; font-size: 1.05rem; display: block; }
+
+    /* ─── SECTION GENERIC ─── */
+    section { padding: 100px 60px; }
+    .section-label {
+      font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--blue-light);
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      font-weight: 700; color: var(--blue-deep); line-height: 1.2;
+      margin-bottom: 18px;
+    }
+    .section-sub {
+      color: var(--text-muted); font-size: 1rem; line-height: 1.7;
+      max-width: 520px; font-weight: 300;
+    }
+
+    /* ─── SERVICES ─── */
+    #services { background: var(--off-white); }
+    .services-header { text-align: center; margin-bottom: 64px; }
+    .services-header .section-sub { margin: 0 auto; }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 24px;
+    }
+    .service-card {
+      background: white;
+      border-radius: var(--radius);
+      padding: 32px 28px;
+      border: 1px solid rgba(21,101,192,0.08);
+      transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+      position: relative; overflow: hidden;
+      animation: fadeUp 0.6s ease both;
+    }
+    .service-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 40px rgba(10,61,107,0.12);
+      border-color: var(--blue-light);
+    }
+    .service-card::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--blue-mid), var(--blue-light));
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.3s;
+    }
+    .service-card:hover::after { transform: scaleX(1); }
+
+    .service-icon {
+      width: 52px; height: 52px;
+      background: var(--blue-sky);
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; margin-bottom: 20px;
+    }
+    .service-card h3 {
+      font-size: 1.02rem; font-weight: 600;
+      color: var(--blue-deep); margin-bottom: 8px;
+    }
+    .service-card p {
+      font-size: 0.87rem; color: var(--text-muted); line-height: 1.6;
+    }
+
+    /* ─── WHY US ─── */
+    #why {
+      background: linear-gradient(135deg, var(--blue-deep) 0%, #1a4f8a 100%);
+      position: relative; overflow: hidden;
+    }
+    #why::before {
+      content: '';
+      position: absolute; top: -120px; right: -120px;
+      width: 500px; height: 500px; border-radius: 50%;
+      background: rgba(255,255,255,0.04);
+    }
+
+    .why-inner {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+      align-items: center; position: relative; z-index: 1;
+    }
+    .why-text .section-label { color: var(--gold); }
+    .why-text .section-title { color: white; }
+    .why-text .section-sub { color: rgba(255,255,255,0.72); }
+
+    .why-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .why-card {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 16px; padding: 24px;
+      transition: background 0.2s;
+    }
+    .why-card:hover { background: rgba(255,255,255,0.14); }
+    .why-card .num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem; font-weight: 700;
+      color: var(--gold); line-height: 1; margin-bottom: 6px;
+    }
+    .why-card p {
+      color: rgba(255,255,255,0.78); font-size: 0.85rem; line-height: 1.5;
+    }
+
+    /* ─── HORAIRES ─── */
+    #horaires { background: white; }
+    .horaires-inner {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+    }
+
+    .hours-table { width: 100%; margin-top: 28px; }
+    .hours-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 16px 0; border-bottom: 1px solid rgba(21,101,192,0.08);
+    }
+    .hours-row:last-child { border-bottom: none; }
+    .hours-row .day { font-weight: 600; color: var(--blue-deep); font-size: 0.95rem; }
+    .hours-badge {
+      background: var(--blue-sky); color: var(--blue-mid);
+      padding: 5px 14px; border-radius: 50px;
+      font-size: 0.82rem; font-weight: 600;
+    }
+    .hours-badge.closed { background: #fef2f2; color: #e53935; }
+
+    .contact-block { padding-left: 0; }
+    .contact-block .section-sub { margin-bottom: 36px; }
+
+    .contact-item {
+      display: flex; align-items: flex-start; gap: 16px;
+      margin-bottom: 24px;
+    }
+    .contact-item .ci-icon {
+      width: 46px; height: 46px; background: var(--blue-mid); border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; flex-shrink: 0;
+      box-shadow: 0 4px 14px rgba(21,101,192,0.3);
+    }
+    .contact-item .ci-text span { display: block; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 2px; }
+    .contact-item .ci-text strong { font-size: 1rem; color: var(--blue-deep); }
+
+    .insurance-banner {
+      margin-top: 36px;
+      background: linear-gradient(135deg, var(--blue-sky), #dbeeff);
+      border: 1px solid rgba(21,101,192,0.15);
+      border-radius: 16px; padding: 20px 24px;
+      display: flex; align-items: center; gap: 14px;
+    }
+    .insurance-banner .ins-icon { font-size: 2rem; }
+    .insurance-banner p { font-size: 0.9rem; color: var(--blue-deep); }
+    .insurance-banner strong { font-size: 1rem; display: block; }
+
+    /* ─── CTA STRIP ─── */
+    #cta-strip {
+      padding: 80px 60px;
+      background: var(--blue-sky);
+      text-align: center;
+    }
+    #cta-strip h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      color: var(--blue-deep); margin-bottom: 12px;
+    }
+    #cta-strip p { color: var(--text-muted); margin-bottom: 32px; font-size: 1rem; }
+    .cta-btn {
+      display: inline-block;
+      background: var(--blue-mid); color: white;
+      padding: 16px 44px; border-radius: 50px;
+      font-size: 1rem; font-weight: 700; text-decoration: none;
+      box-shadow: 0 8px 24px rgba(21,101,192,0.35);
+      transition: transform 0.2s, background 0.2s;
+    }
+    .cta-btn:hover { background: var(--blue-deep); transform: translateY(-2px); }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--blue-deep); color: rgba(255,255,255,0.65);
+      padding: 40px 60px;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 16px;
+    }
+    footer .foot-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem; color: white; font-weight: 700;
+    }
+    footer p { font-size: 0.82rem; }
+    footer a { color: var(--gold); text-decoration: none; }
+
+    /* ─── SCROLL REVEAL ─── */
+    .reveal {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ─── HAMBURGER ─── */
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      cursor: pointer; padding: 6px; background: none; border: none;
+    }
+    .hamburger span {
+      display: block; width: 24px; height: 2.5px;
+      background: var(--blue-deep); border-radius: 4px;
+      transition: all 0.3s ease;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
+    .mobile-menu {
+      display: none; position: fixed; top: 80px; left: 0; right: 0;
+      background: white; z-index: 99; flex-direction: column;
+      border-bottom: 2px solid var(--blue-sky);
+      box-shadow: 0 12px 32px rgba(10,61,107,0.1);
+      padding: 16px 24px 24px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      padding: 14px 0; font-size: 1rem; font-weight: 600;
+      color: var(--text-dark); text-decoration: none;
+      border-bottom: 1px solid var(--blue-sky); transition: color 0.2s;
+    }
+    .mobile-menu a:hover { color: var(--blue-mid); }
+    .mobile-menu .mob-cta {
+      margin-top: 14px; background: var(--blue-mid); color: white !important;
+      padding: 14px; border-radius: 12px; text-align: center;
+      font-weight: 700; border-bottom: none !important;
+      box-shadow: 0 4px 14px rgba(21,101,192,0.3);
+    }
+    .mobile-social { display: flex; gap: 12px; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--blue-sky); }
+    .mobile-social a { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border-bottom: none !important; padding: 0 !important; }
+    .mobile-social a svg { width: 18px; height: 18px; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      nav { padding: 16px 24px; }
+      .nav-links { display: none; }
+      .nav-right-desktop { display: none !important; }
+      .hamburger { display: flex; }
+      #hero { flex-direction: column; padding: 110px 24px 60px; gap: 48px; text-align: center; }
+      .hero-actions { justify-content: center; }
+      .hero-visual { width: 100%; display: flex; justify-content: center; }
+      section { padding: 70px 24px; }
+      .why-inner, .horaires-inner { grid-template-columns: 1fr; gap: 48px; }
+      footer { padding: 32px 24px; flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="nav-logo">
+    <div class="tooth-icon">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2C9.5 2 7.5 3.2 6.3 5c-.6 1-1.1 2.3-1.2 3.7-.2 2 .4 4.2 1.4 6.5.7 1.7 1.5 4 1.5 6.3 0 .3.2.5.5.5s.5-.2.5-.5c0-1 .3-2.6.7-3.7.4-1 1-1.8 2.3-1.8s1.9.8 2.3 1.8c.4 1.1.7 2.7.7 3.7 0 .3.2.5.5.5s.5-.2.5-.5c0-2.3.8-4.6 1.5-6.3 1-2.3 1.6-4.5 1.4-6.5-.1-1.4-.6-2.7-1.2-3.7C16.5 3.2 14.5 2 12 2z"/>
+      </svg>
+    </div>
+    <div class="brand">
+      <span>Clinique Dentaire 31 - 75</span>
+      <span>Votre santé bucco-dentaire</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="services.html">Services</a></li>
+    <li><a href="a-propos.html">À propos</a></li>
+    <li><a href="index.html#horaires">Horaires</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+  <div class="nav-right-desktop" style="display:flex;align-items:center;gap:14px;">
+    <div class="social-links">
+      <a href="https://www.tiktok.com/@cliniquedentaire_31" target="_blank" rel="noopener" class="social-tiktok" title="TikTok">
+        <svg viewBox="0 0 24 24" fill="white"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z"/></svg>
+      </a>
+      <a href="https://www.facebook.com/cliniquedentaire31" target="_blank" rel="noopener" class="social-facebook" title="Facebook">
+        <svg viewBox="0 0 24 24" fill="white"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+      </a>
+      <a href="https://www.instagram.com/cliniquedentaire31" target="_blank" rel="noopener" class="social-instagram" title="Instagram">
+        <svg viewBox="0 0 24 24" fill="white"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      </a>
+    </div>
+    <a href="rendez-vous.html" class="nav-cta">📅 Rendez-vous</a>
+  </div>
+  <!-- HAMBURGER -->
+  <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobile-menu">
+  <a href="services.html">🦷 Nos Services</a>
+  <a href="a-propos.html">👨‍⚕️ À propos</a>
+  <a href="index.html#horaires" onclick="closeMenu()">🕐 Horaires</a>
+  <a href="index.html#contact" onclick="closeMenu()">📍 Contact</a>
+</div>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-circle hc1"></div>
+  <div class="hero-circle hc2"></div>
+  <div class="hero-circle hc3"></div>
+
+  <div class="hero-content">
+    <div class="hero-badge">Soins dentaires professionnels</div>
+    <h1>Gardez votre <em>sourire</em> en parfaite santé</h1>
+    <p>La Clinique Dentaire 31 vous offre des soins bucco-dentaires complets, modernes et personnalisés. Votre confort et votre confiance sont notre priorité.</p>
+    <div class="hero-actions">
+      <a href="rendez-vous.html" class="btn-primary">📅 Prendre rendez-vous</a>
+      <a href="#services" class="btn-outline">Nos services →</a>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="hero-card">
+      <span class="smile-icon">🦷</span>
+      <h3>Traitement des affections bucco-dentaires</h3>
+      <p>Consultation, blanchiment, orthodontie, prothèses et bien plus encore.</p>
+      <div class="hero-phone-pill">
+        <div class="ph-icon">📞</div>
+        <div>
+          <span>Appelez-nous maintenant</span>
+          <strong>4767-9797</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="services-header reveal">
+    <div class="section-label">Ce que nous offrons</div>
+    <h2 class="section-title">Nos services dentaires</h2>
+    <p class="section-sub">Une gamme complète de soins pour toute la famille, réalisée par des professionnels qualifiés.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card reveal" style="animation-delay:0.05s">
+      <div class="service-icon">🔍</div>
+      <h3>Consultation & Prophylaxie</h3>
+      <p>Bilan complet, détartrage et nettoyage professionnel pour prévenir les caries et maladies des gencives.</p>
+    </div>
+    <div class="service-card reveal" style="animation-delay:0.1s">
+      <div class="service-icon">🪨</div>
+      <h3>Amalgame / Composite</h3>
+      <p>Obturations esthétiques et durables pour restaurer vos dents endommagées par les caries.</p>
+    </div>
+    <div class="service-card reveal" style="animation-delay:0.15s">
+      <div class="service-icon">✨</div>
+      <h3>Blanchiment des Dents</h3>
+      <p>Traitement professionnel pour retrouver un sourire éclatant de blancheur en toute sécurité.</p>
+    </div>
+    <div class="service-card reveal" style="animation-delay:0.2s">
+      <div class="service-icon">🦷</div>
+      <h3>Extraction Dentaire</h3>
+      <p>Extraction simple ou chirurgicale réalisée avec soin et dans les meilleures conditions d'hygiène.</p>
+    </div>
+    <div class="service-card reveal" style="animation-delay:0.25s">
+      <div class="service-icon">🔬</div>
+      <h3>Traitement de Canal</h3>
+      <p>Dévitalisation et traitement endodontique pour sauver vos dents et éliminer la douleur.</p>
+    </div>
+    <div class="service-card reveal" style="animation-delay:0.3s">
+      <div class="service-icon">🦴</div>
+      <h3>Prothèse Complète & Partielle</h3>
+      <p>Prothèses amovibles sur mesure pour retrouver confort, fonctionnalité et esthétique.</p>
+    </div>
+    <div class="service-card reveal" style="animation-delay:0.35s">
+      <div class="service-icon">👑</div>
+      <h3>Couronne & Pont</h3>
+      <p>Reconstitutions fixes pour restaurer l'apparence et la fonction de vos dents abîmées.</p>
+    </div>
+    <div class="service-card reveal" style="animation-delay:0.4s">
+      <div class="service-icon">🔧</div>
+      <h3>Orthodontie Amovible</h3>
+      <p>Appareils orthodontiques amovibles pour corriger l'alignement des dents chez l'enfant et l'adulte.</p>
+    </div>
+    <div class="service-card reveal" style="animation-delay:0.45s">
+      <div class="service-icon">📷</div>
+      <h3>Radiographie Dentaire</h3>
+      <p>Imagerie dentaire précise pour un diagnostic fiable et un suivi rigoureux de votre santé buccale.</p>
+    </div>
+    <div class="service-card reveal" style="animation-delay:0.5s">
+      <div class="service-icon">👨‍👩‍👧</div>
+      <h3>Soins pour Toute la Famille</h3>
+      <p>De l'enfant à l'adulte, nous offrons des soins adaptés à chaque âge dans un environnement bienveillant.</p>
+    </div>
+    <div class="service-card reveal" style="animation-delay:0.55s">
+      <div class="service-icon">🏥</div>
+      <h3>Urgences Dentaires</h3>
+      <p>Douleur soudaine ou accident ? Nous vous accueillons rapidement pour soulager et traiter votre urgence.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section id="why">
+  <div class="why-inner">
+    <div class="why-text reveal">
+      <div class="section-label">Pourquoi nous choisir</div>
+      <h2 class="section-title">La santé de votre sourire, notre engagement</h2>
+      <p class="section-sub">Chez Clinique Dentaire 31, chaque patient est traité avec attention, professionnalisme et bienveillance. Nous combinons technologie moderne et approche humaine.</p>
+    </div>
+    <div class="why-cards reveal">
+      <div class="why-card">
+        <div class="num">9+</div>
+        <p>Services spécialisés pour toute la famille</p>
+      </div>
+      <div class="why-card">
+        <div class="num">✓</div>
+        <p>Assurances acceptées pour faciliter vos soins</p>
+      </div>
+      <div class="why-card">
+        <div class="num">6j</div>
+        <p>Ouverts du lundi au samedi pour votre commodité</p>
+      </div>
+      <div class="why-card">
+        <div class="num">★</div>
+        <p>Soins de qualité dans un cadre moderne et confortable</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HORAIRES & CONTACT -->
+<section id="horaires">
+  <div class="horaires-inner">
+    <div>
+      <div class="section-label">Horaires d'ouverture</div>
+      <h2 class="section-title">Quand nous visiter</h2>
+      <p class="section-sub">Consultez nos horaires et planifiez votre visite.</p>
+      <div class="hours-table">
+        <div class="hours-row">
+          <span class="day">Lundi – Vendredi</span>
+          <span class="hours-badge">8:00 a.m. – 4:00 p.m.</span>
+        </div>
+        <div class="hours-row">
+          <span class="day">Samedi</span>
+          <span class="hours-badge">9:00 a.m. – 2:00 p.m.</span>
+        </div>
+        <div class="hours-row">
+          <span class="day">Dimanche</span>
+          <span class="hours-badge closed">Fermé</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-block">
+      <div class="section-label">Nous contacter</div>
+      <h2 class="section-title">Prenez rendez-vous</h2>
+      <p class="section-sub">Notre équipe est à votre disposition pour répondre à toutes vos questions et vous accueillir.</p>
+
+      <div class="contact-item">
+        <div class="ci-icon">📞</div>
+        <div class="ci-text">
+          <span>Téléphone</span>
+          <strong>4767-9797</strong>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="ci-icon">📍</div>
+        <div class="ci-text">
+          <span>Adresse</span>
+          <strong>2, impasse Chavanne, Fragneau ville Delmas 75</strong>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="ci-icon">✉️</div>
+        <div class="ci-text">
+          <span>Courriel</span>
+          <strong><a href="cliniquedentaire31@gmail.com" class="__cf_email__" data-cfemail="6f0c030601061e1a0a0b0a011b0e061d0a5c5e2f08020e0603410c0002">[email&#160;protected]</a></strong>
+        </div>
+      </div>
+
+      <div class="insurance-banner">
+        <div class="ins-icon">🛡️</div>
+        <p>
+          <strong>Nous acceptons les assurances !!!</strong>
+          Facilitez vos soins grâce à la prise en charge par votre assurance.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA STRIP -->
+<section id="cta-strip">
+  <h2>Prêt à retrouver votre plus beau sourire ?</h2>
+  <p>Contactez-nous dès aujourd'hui pour prendre votre rendez-vous.</p>
+  <a href="rendez-vous.html" class="cta-btn">📅 Prendre rendez-vous</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-logo">Clinique Dentaire 31</div>
+  <p>cliniquedentaire31@gmail.com &nbsp;|&nbsp; 4767-9797</p>
+  <p style="font-size:0.75rem; color:rgba(255,255,255,0.45);">2, impasse Chavanne, Fragneau ville Delmas 75</p>
+  <div class="footer-social">
+    <div class="footer-social-links">
+      <a href="https://www.tiktok.com/@cliniquedentaire_31" target="_blank" rel="noopener" title="TikTok">
+        <svg viewBox="0 0 24 24" fill="white"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z"/></svg>
+      </a>
+      <a href="https://www.facebook.com/cliniquedentaire31" target="_blank" rel="noopener" title="Facebook">
+        <svg viewBox="0 0 24 24" fill="white"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+      </a>
+      <a href="https://www.instagram.com/cliniquedentaire31" target="_blank" rel="noopener" title="Instagram">
+        <svg viewBox="0 0 24 24" fill="white"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      </a>
+    </div>
+    <p style="font-size:0.78rem;">© 2026 Clinique Dentaire 31. Tous droits réservés.</p>
+  </div>
+</footer>
+
+<!-- WHATSAPP FLOATING BUTTON -->
+<a href="https://wa.me/47679797?text=Bonjour%2C%20je%20souhaite%20prendre%20rendez-vous%20ou%20avoir%20des%20informations%20sur%20vos%20soins%20dentaires." target="_blank" rel="noopener" class="wa-float" title="Contactez-nous sur WhatsApp">
+  <span class="wa-tooltip">Écrivez-nous !</span>
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="white">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/>
+  </svg>
+</a>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  function toggleMenu() {
+    document.getElementById('hamburger').classList.toggle('open');
+    document.getElementById('mobile-menu').classList.toggle('open');
+  }
+  function closeMenu() {
+    document.getElementById('hamburger').classList.remove('open');
+    document.getElementById('mobile-menu').classList.remove('open');
+  }
+</script>
+</body>
+</html>

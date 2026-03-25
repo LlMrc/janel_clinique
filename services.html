@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nos Services – Clinique Dentaire 31</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --blue-deep: #0a3d6b; --blue-mid: #1565c0; --blue-light: #1e88e5;
+      --blue-sky: #e8f4fd; --white: #ffffff; --off-white: #f7fafd;
+      --text-dark: #0d1b2a; --text-muted: #5a7a99; --gold: #f0c040; --radius: 18px;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--off-white); color: var(--text-dark); overflow-x: hidden; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 60px; background: rgba(255,255,255,0.93);
+      backdrop-filter: blur(14px); border-bottom: 1px solid rgba(21,101,192,0.1);
+      box-shadow: 0 2px 24px rgba(10,61,107,0.06);
+      animation: slideDown 0.6s ease both;
+    }
+    @keyframes slideDown { from { transform: translateY(-60px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .nav-logo .tooth-icon { width: 46px; height: 46px; background: var(--blue-mid); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 14px rgba(21,101,192,0.35); }
+    .nav-logo .tooth-icon svg { width: 24px; height: 24px; fill: white; }
+    .nav-logo .brand span:first-child { display: block; font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--blue-deep); }
+    .nav-logo .brand span:last-child { display: block; font-size: 0.75rem; color: var(--text-muted); }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--text-dark); font-size: 0.88rem; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--blue-light); }
+    .nav-right { display: flex; align-items: center; gap: 14px; }
+    .nav-cta { background: var(--blue-mid); color: white; padding: 10px 24px; border-radius: 50px; font-size: 0.88rem; font-weight: 600; text-decoration: none; transition: background 0.2s; box-shadow: 0 4px 16px rgba(21,101,192,0.3); }
+    .nav-cta:hover { background: var(--blue-deep); }
+    .social-links { display: flex; gap: 8px; }
+    .social-links a { width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: transform 0.2s; }
+    .social-links a:hover { transform: translateY(-2px); }
+    .social-links a svg { width: 16px; height: 16px; }
+    .social-tiktok { background: #010101; }
+    .social-facebook { background: #1877f2; }
+    .social-instagram { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90%); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px; background: none; border: none; }
+    .hamburger span { display: block; width: 24px; height: 2.5px; background: var(--blue-deep); border-radius: 4px; transition: all 0.3s ease; }
+    .hamburger.open span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
+    .mobile-menu { display: none; position: fixed; top: 80px; left: 0; right: 0; background: white; z-index: 99; flex-direction: column; box-shadow: 0 12px 32px rgba(10,61,107,0.1); padding: 16px 24px 24px; border-bottom: 2px solid var(--blue-sky); }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { padding: 14px 0; font-size: 1rem; font-weight: 600; color: var(--text-dark); text-decoration: none; border-bottom: 1px solid var(--blue-sky); transition: color 0.2s; }
+    .mobile-menu a:hover { color: var(--blue-mid); }
+    .mobile-menu .mob-cta { margin-top: 14px; background: var(--blue-mid); color: white !important; padding: 14px; border-radius: 12px; text-align: center; font-weight: 700; border-bottom: none !important; }
+
+    /* HERO */
+    .page-hero {
+      background: linear-gradient(140deg, var(--blue-deep) 0%, var(--blue-mid) 55%, var(--blue-light) 100%);
+      padding: 130px 60px 70px; text-align: center; position: relative; overflow: hidden;
+    }
+    .page-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 50% 60%, rgba(255,255,255,0.07) 0%, transparent 60%); }
+    .ring { position: absolute; border-radius: 50%; border: 1px solid rgba(255,255,255,0.1); }
+    .r1 { width: 400px; height: 400px; top: -140px; left: -80px; }
+    .r2 { width: 280px; height: 280px; bottom: -80px; right: 40px; }
+    .hero-inner { position: relative; z-index: 2; animation: fadeUp 0.8s ease both; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25); color: white; padding: 6px 18px; border-radius: 50px; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 20px; }
+    .page-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3rem); color: white; font-weight: 700; line-height: 1.2; margin-bottom: 14px; }
+    .page-hero h1 em { font-style: normal; color: var(--gold); }
+    .page-hero p { color: rgba(255,255,255,0.8); font-size: 1rem; font-weight: 300; max-width: 500px; margin: 0 auto 36px; line-height: 1.7; }
+    .hero-stats { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; margin-top: 16px; }
+    .hero-stat { text-align: center; }
+    .hero-stat .num { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700; color: var(--gold); }
+    .hero-stat .lbl { font-size: 0.78rem; color: rgba(255,255,255,0.7); margin-top: 2px; }
+
+    /* FILTER */
+    .filter-bar { background: white; border-bottom: 1px solid rgba(21,101,192,0.08); padding: 18px 60px; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; box-shadow: 0 4px 16px rgba(10,61,107,0.05); position: sticky; top: 80px; z-index: 50; }
+    .filter-btn { padding: 9px 22px; border-radius: 50px; border: 1.5px solid #d5e6f5; background: white; font-size: 0.84rem; font-weight: 600; color: var(--text-muted); cursor: pointer; transition: all 0.2s; font-family: 'DM Sans', sans-serif; }
+    .filter-btn:hover { border-color: var(--blue-light); color: var(--blue-mid); }
+    .filter-btn.active { background: var(--blue-mid); border-color: var(--blue-mid); color: white; box-shadow: 0 4px 14px rgba(21,101,192,0.3); }
+
+    /* SERVICES GRID */
+    .services-section { max-width: 1160px; margin: 0 auto; padding: 70px 24px 100px; }
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 28px; }
+
+    .service-card {
+      background: white; border-radius: 22px;
+      border: 1px solid rgba(21,101,192,0.07);
+      box-shadow: 0 4px 20px rgba(10,61,107,0.06);
+      overflow: hidden; transition: transform 0.25s, box-shadow 0.25s;
+      display: flex; flex-direction: column;
+    }
+    .service-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(10,61,107,0.12); }
+
+    .card-top {
+      padding: 28px 28px 0;
+      display: flex; align-items: flex-start; gap: 16px;
+    }
+    .card-icon {
+      width: 56px; height: 56px; border-radius: 16px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem; flex-shrink: 0;
+    }
+    .card-title h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--blue-deep); margin-bottom: 4px; }
+    .card-title .tag { font-size: 0.72rem; font-weight: 600; padding: 3px 10px; border-radius: 50px; letter-spacing: 0.04em; text-transform: uppercase; }
+
+    .card-body { padding: 16px 28px 24px; flex: 1; }
+    .card-body p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 16px; }
+
+    .card-details { display: flex; flex-direction: column; gap: 8px; }
+    .cd-item { display: flex; align-items: center; gap: 10px; font-size: 0.82rem; }
+    .cd-item .cd-icon { width: 28px; height: 28px; background: var(--blue-sky); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; flex-shrink: 0; }
+    .cd-item span { color: var(--text-muted); }
+    .cd-item strong { color: var(--blue-deep); }
+
+    .card-footer {
+      padding: 16px 28px 24px; border-top: 1px solid rgba(21,101,192,0.07);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .card-footer .price { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: var(--blue-deep); font-weight: 700; }
+    .card-footer .price span { font-family: 'DM Sans', sans-serif; font-size: 0.75rem; color: var(--text-muted); font-weight: 400; display: block; }
+    .card-btn { background: var(--blue-sky); color: var(--blue-mid); padding: 9px 18px; border-radius: 50px; font-size: 0.82rem; font-weight: 700; text-decoration: none; transition: all 0.2s; border: 1.5px solid rgba(21,101,192,0.15); }
+    .card-btn:hover { background: var(--blue-mid); color: white; }
+
+    /* COLOR VARIANTS */
+    .cat-general .card-icon { background: #e3f2fd; }
+    .cat-esthetics .card-icon { background: #fce4ec; }
+    .cat-surgery .card-icon { background: #fff3e0; }
+    .cat-ortho .card-icon { background: #e8f5e9; }
+    .cat-prosthetics .card-icon { background: #f3e5f5; }
+    .cat-general .tag { background: #e3f2fd; color: #1565c0; }
+    .cat-esthetics .tag { background: #fce4ec; color: #c2185b; }
+    .cat-surgery .tag { background: #fff3e0; color: #e65100; }
+    .cat-ortho .tag { background: #e8f5e9; color: #2e7d32; }
+    .cat-prosthetics .tag { background: #f3e5f5; color: #7b1fa2; }
+
+    /* CTA BANNER */
+    .cta-banner {
+      background: linear-gradient(135deg, var(--blue-deep), var(--blue-mid));
+      border-radius: 24px; padding: 52px; text-align: center;
+      margin: 0 auto 80px; max-width: 1160px;
+      position: relative; overflow: hidden;
+    }
+    .cta-banner::before { content: ''; position: absolute; top: -80px; right: -80px; width: 300px; height: 300px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.1); }
+    .cta-banner h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.6rem, 3vw, 2.2rem); color: white; margin-bottom: 12px; }
+    .cta-banner p { color: rgba(255,255,255,0.75); margin-bottom: 28px; font-size: 1rem; }
+    .cta-banner .actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .btn-white { background: white; color: var(--blue-deep); padding: 14px 34px; border-radius: 50px; font-weight: 700; font-size: 0.95rem; text-decoration: none; box-shadow: 0 6px 20px rgba(0,0,0,0.15); transition: transform 0.2s; }
+    .btn-white:hover { transform: translateY(-2px); }
+    .btn-outline-w { border: 2px solid rgba(255,255,255,0.5); color: white; padding: 14px 34px; border-radius: 50px; font-weight: 600; font-size: 0.95rem; text-decoration: none; transition: background 0.2s; }
+    .btn-outline-w:hover { background: rgba(255,255,255,0.12); border-color: white; }
+
+    /* FOOTER */
+    footer { background: var(--blue-deep); color: rgba(255,255,255,0.65); padding: 36px 60px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+    footer .foot-logo { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: white; font-weight: 700; }
+    footer p { font-size: 0.82rem; }
+    .foot-links { display: flex; gap: 20px; }
+    .foot-links a { color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.82rem; transition: color 0.2s; }
+    .foot-links a:hover { color: var(--gold); }
+
+    /* WA */
+    .wa-float { position: fixed; bottom: 28px; right: 28px; z-index: 999; width: 58px; height: 58px; border-radius: 50%; background: #25d366; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 24px rgba(37,211,102,0.5); text-decoration: none; animation: waPulse 2.5s infinite; transition: transform 0.2s; }
+    .wa-float:hover { transform: scale(1.1); animation: none; }
+    .wa-float svg { width: 30px; height: 30px; fill: white; }
+    @keyframes waPulse { 0%,100% { box-shadow: 0 6px 24px rgba(37,211,102,0.5); } 50% { box-shadow: 0 6px 32px rgba(37,211,102,0.75), 0 0 0 10px rgba(37,211,102,0.1); } }
+
+    /* REVEAL */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 900px) {
+      nav { padding: 16px 24px; }
+      .nav-links { display: none; }
+      .nav-right-desktop { display: none !important; }
+      .hamburger { display: flex; }
+      
+      .page-hero { padding: 110px 24px 60px; }
+      .hero-stats { gap: 20px; }
+      
+      .filter-bar { padding: 12px 20px; top: 0px; } /* Sticky top 80px might be too much if nav is also sticky or if we want space */
+      .filter-btn { padding: 7px 16px; font-size: 0.78rem; }
+
+      .services-section { padding: 40px 20px 80px; }
+      .services-grid { grid-template-columns: 1fr; gap: 20px; }
+      
+      .cta-banner { padding: 36px 24px; margin: 0 16px 60px; }
+      footer { padding: 28px 20px; flex-direction: column; text-align: center; }
+    }
+    
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">
+    <div class="tooth-icon"><svg viewBox="0 0 24 24"><path d="M12 2C9.5 2 7.5 3.2 6.3 5c-.6 1-1.1 2.3-1.2 3.7-.2 2 .4 4.2 1.4 6.5.7 1.7 1.5 4 1.5 6.3 0 .3.2.5.5.5s.5-.2.5-.5c0-1 .3-2.6.7-3.7.4-1 1-1.8 2.3-1.8s1.9.8 2.3 1.8c.4 1.1.7 2.7.7 3.7 0 .3.2.5.5.5s.5-.2.5-.5c0-2.3.8-4.6 1.5-6.3 1-2.3 1.6-4.5 1.4-6.5-.1-1.4-.6-2.7-1.2-3.7C16.5 3.2 14.5 2 12 2z"/></svg></div>
+    <div class="brand"><span>Clinique Dentaire 31</span><span>Votre santé bucco-dentaire</span></div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="services.html" class="active">Services</a></li>
+    <li><a href="a-propos.html">À propos</a></li>
+    <li><a href="index.html#horaires">Horaires</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+  <div class="nav-right-desktop">
+    <div class="social-links">
+      <a href="https://www.tiktok.com/@cliniquedentaire_31" target="_blank" class="social-tiktok"><svg viewBox="0 0 24 24" fill="white"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z"/></svg></a>
+      <a href="https://www.facebook.com/cliniquedentaire31" target="_blank" class="social-facebook"><svg viewBox="0 0 24 24" fill="white"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+      <a href="https://www.instagram.com/cliniquedentaire31" target="_blank" class="social-instagram"><svg viewBox="0 0 24 24" fill="white"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+    </div>
+    <a href="rendez-vous.html" class="nav-cta">📅 Rendez-vous</a>
+  </div>
+  <button class="hamburger" id="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="index.html">🏠 Accueil</a>
+  <a href="a-propos.html">👨‍⚕️ À propos</a>
+  <a href="index.html#horaires" onclick="closeMenu()">🕐 Horaires & Contact</a>
+</div>
+
+<!-- HERO -->
+<div class="page-hero">
+  <div class="ring r1"></div><div class="ring r2"></div>
+  <div class="hero-inner">
+    <div class="hero-badge">✦ Soins professionnels</div>
+    <h1>Nos <em>services</em> dentaires</h1>
+    <p>De la consultation au traitement spécialisé, nous prenons soin de votre santé bucco-dentaire avec expertise et bienveillance.</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="num">11</div><div class="lbl">Services disponibles</div></div>
+      <div class="hero-stat"><div class="num">6j/7</div><div class="lbl">Jours d'ouverture</div></div>
+      <div class="hero-stat"><div class="num">✓</div><div class="lbl">Assurances acceptées</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- FILTER -->
+<div class="filter-bar">
+  <button class="filter-btn active" onclick="filterCards('all', this)">Tous</button>
+  <button class="filter-btn" onclick="filterCards('cat-general', this)">Général</button>
+  <button class="filter-btn" onclick="filterCards('cat-esthetics', this)">Esthétique</button>
+  <button class="filter-btn" onclick="filterCards('cat-surgery', this)">Chirurgie</button>
+  <button class="filter-btn" onclick="filterCards('cat-ortho', this)">Orthodontie</button>
+  <button class="filter-btn" onclick="filterCards('cat-prosthetics', this)">Prothèse</button>
+</div>
+
+<!-- SERVICES -->
+<div class="services-section">
+  <div class="services-grid" id="services-grid">
+
+    <!-- 1 -->
+    <div class="service-card cat-general reveal">
+      <div class="card-top">
+        <div class="card-icon">🔍</div>
+        <div class="card-title">
+          <h3>Consultation & Prophylaxie</h3>
+          <span class="tag">Général</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <p>Bilan complet de votre santé bucco-dentaire avec examen clinique approfondi, détartrage et polissage professionnel pour prévenir les caries et maladies des gencives.</p>
+        <div class="card-details">
+          <div class="cd-item"><div class="cd-icon">⏱️</div><span>Durée :</span><strong>30 – 60 min</strong></div>
+          <div class="cd-item"><div class="cd-icon">🔁</div><span>Fréquence :</span><strong>Tous les 6 mois</strong></div>
+          <div class="cd-item"><div class="cd-icon">🛡️</div><span>Assurance :</span><strong>Généralement couverte</strong></div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="price">Consultation<span>Tarif sur place</span></div>
+        <a href="rendez-vous.html" class="card-btn">Réserver →</a>
+      </div>
+    </div>
+
+    <!-- 2 -->
+    <div class="service-card cat-general reveal">
+      <div class="card-top">
+        <div class="card-icon">🪨</div>
+        <div class="card-title">
+          <h3>Amalgame / Composite</h3>
+          <span class="tag">Général</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <p>Obturations en amalgame (durable) ou en composite (esthétique, couleur naturelle) pour restaurer les dents endommagées par les caries de façon fiable et durable.</p>
+        <div class="card-details">
+          <div class="cd-item"><div class="cd-icon">⏱️</div><span>Durée :</span><strong>30 – 45 min</strong></div>
+          <div class="cd-item"><div class="cd-icon">🎨</div><span>Type :</span><strong>Amalgame ou composite</strong></div>
+          <div class="cd-item"><div class="cd-icon">🛡️</div><span>Assurance :</span><strong>Généralement couverte</strong></div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="price">Obturation<span>Tarif selon la cavité</span></div>
+        <a href="rendez-vous.html" class="card-btn">Réserver →</a>
+      </div>
+    </div>
+
+    <!-- 3 -->
+    <div class="service-card cat-esthetics reveal">
+      <div class="card-top">
+        <div class="card-icon">✨</div>
+        <div class="card-title">
+          <h3>Blanchiment des Dents</h3>
+          <span class="tag">Esthétique</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <p>Traitement de blanchiment professionnel sûr et efficace pour retrouver un sourire éclatant. Résultats visibles dès la première séance, jusqu'à plusieurs teintes plus blanc.</p>
+        <div class="card-details">
+          <div class="cd-item"><div class="cd-icon">⏱️</div><span>Durée :</span><strong>60 – 90 min</strong></div>
+          <div class="cd-item"><div class="cd-icon">🌟</div><span>Résultat :</span><strong>Visible immédiatement</strong></div>
+          <div class="cd-item"><div class="cd-icon">🛡️</div><span>Assurance :</span><strong>Non couverte (esthétique)</strong></div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="price">Blanchiment<span>Tarif sur devis</span></div>
+        <a href="rendez-vous.html" class="card-btn">Réserver →</a>
+      </div>
+    </div>
+
+    <!-- 4 -->
+    <div class="service-card cat-surgery reveal">
+      <div class="card-top">
+        <div class="card-icon">🦷</div>
+        <div class="card-title">
+          <h3>Extraction Dentaire</h3>
+          <span class="tag">Chirurgie</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <p>Extraction simple ou chirurgicale réalisée sous anesthésie locale avec soin et précision. Indiquée pour les dents trop abîmées, les dents de sagesse ou les urgences.</p>
+        <div class="card-details">
+          <div class="cd-item"><div class="cd-icon">⏱️</div><span>Durée :</span><strong>20 – 45 min</strong></div>
+          <div class="cd-item"><div class="cd-icon">💊</div><span>Anesthésie :</span><strong>Locale incluse</strong></div>
+          <div class="cd-item"><div class="cd-icon">🛡️</div><span>Assurance :</span><strong>Souvent couverte</strong></div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="price">Extraction<span>Tarif selon complexité</span></div>
+        <a href="rendez-vous.html" class="card-btn">Réserver →</a>
+      </div>
+    </div>
+
+    <!-- 5 -->
+    <div class="service-card cat-general reveal">
+      <div class="card-top">
+        <div class="card-icon">🔬</div>
+        <div class="card-title">
+          <h3>Traitement de Canal</h3>
+          <span class="tag">Général</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <p>Dévitalisation et traitement endodontique pour sauver une dent infectée ou morte. Ce soin élimine la douleur, supprime l'infection et préserve votre dent naturelle.</p>
+        <div class="card-details">
+          <div class="cd-item"><div class="cd-icon">⏱️</div><span>Durée :</span><strong>60 – 90 min</strong></div>
+          <div class="cd-item"><div class="cd-icon">🩺</div><span>Séances :</span><strong>1 à 2 séances</strong></div>
+          <div class="cd-item"><div class="cd-icon">🛡️</div><span>Assurance :</span><strong>Généralement couverte</strong></div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="price">Endodontie<span>Tarif sur devis</span></div>
+        <a href="rendez-vous.html" class="card-btn">Réserver →</a>
+      </div>
+    </div>
+
+    <!-- 6 -->
+    <div class="service-card cat-prosthetics reveal">
+      <div class="card-top">
+        <div class="card-icon">🦴</div>
+        <div class="card-title">
+          <h3>Prothèse Complète & Partielle</h3>
+          <span class="tag">Prothèse</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <p>Prothèses amovibles sur mesure pour remplacer des dents manquantes. Complètes (dentier) ou partielles, elles redonnent confort masticatoire, fonctionnalité et esthétique.</p>
+        <div class="card-details">
+          <div class="cd-item"><div class="cd-icon">⏱️</div><span>Délai :</span><strong>2 – 4 semaines</strong></div>
+          <div class="cd-item"><div class="cd-icon">📐</div><span>Type :</span><strong>Sur mesure</strong></div>
+          <div class="cd-item"><div class="cd-icon">🛡️</div><span>Assurance :</span><strong>Partiellement couverte</strong></div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="price">Prothèse<span>Tarif sur devis</span></div>
+        <a href="rendez-vous.html" class="card-btn">Réserver →</a>
+      </div>
+    </div>
+
+    <!-- 7 -->
+    <div class="service-card cat-prosthetics reveal">
+      <div class="card-top">
+        <div class="card-icon">👑</div>
+        <div class="card-title">
+          <h3>Couronne & Pont</h3>
+          <span class="tag">Prothèse</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <p>Couronnes fixes pour restaurer une dent très abîmée, et ponts dentaires pour remplacer une ou plusieurs dents manquantes. Esthétique naturelle et solidité garanties.</p>
+        <div class="card-details">
+          <div class="cd-item"><div class="cd-icon">⏱️</div><span>Délai :</span><strong>2 – 3 semaines</strong></div>
+          <div class="cd-item"><div class="cd-icon">✨</div><span>Matériau :</span><strong>Porcelaine ou céramique</strong></div>
+          <div class="cd-item"><div class="cd-icon">🛡️</div><span>Assurance :</span><strong>Partiellement couverte</strong></div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="price">Couronne<span>Tarif sur devis</span></div>
+        <a href="rendez-vous.html" class="card-btn">Réserver →</a>
+      </div>
+    </div>
+
+    <!-- 8 -->
+    <div class="service-card cat-ortho reveal">
+      <div class="card-top">
+        <div class="card-icon">🔧</div>
+        <div class="card-title">
+          <h3>Orthodontie Amovible</h3>
+          <span class="tag">Orthodontie</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <p>Appareils orthodontiques amovibles pour corriger l'alignement des dents chez l'enfant et l'adolescent. Discrets, confortables et efficaces pour un sourire bien aligné.</p>
+        <div class="card-details">
+          <div class="cd-item"><div class="cd-icon">⏱️</div><span>Durée :</span><strong>6 – 18 mois</strong></div>
+          <div class="cd-item"><div class="cd-icon">👶</div><span>Âge :</span><strong>Enfant & adolescent</strong></div>
+          <div class="cd-item"><div class="cd-icon">🛡️</div><span>Assurance :</span><strong>Selon couverture</strong></div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="price">Orthodontie<span>Tarif sur consultation</span></div>
+        <a href="rendez-vous.html" class="card-btn">Réserver →</a>
+      </div>
+    </div>
+
+    <!-- 9 -->
+    <div class="service-card cat-general reveal">
+      <div class="card-top">
+        <div class="card-icon">📷</div>
+        <div class="card-title">
+          <h3>Radiographie Dentaire</h3>
+          <span class="tag">Général</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <p>Imagerie dentaire numérique précise pour un diagnostic fiable : caries invisibles à l'œil nu, état des racines, os alvéolaire, planification des traitements.</p>
+        <div class="card-details">
+          <div class="cd-item"><div class="cd-icon">⏱️</div><span>Durée :</span><strong>10 – 15 min</strong></div>
+          <div class="cd-item"><div class="cd-icon">🖥️</div><span>Type :</span><strong>Numérique</strong></div>
+          <div class="cd-item"><div class="cd-icon">🛡️</div><span>Assurance :</span><strong>Généralement couverte</strong></div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="price">Radiographie<span>Tarif sur place</span></div>
+        <a href="rendez-vous.html" class="card-btn">Réserver →</a>
+      </div>
+    </div>
+
+    <!-- 10 -->
+    <div class="service-card cat-general reveal">
+      <div class="card-top">
+        <div class="card-icon">👨‍👩‍👧</div>
+        <div class="card-title">
+          <h3>Soins pour Toute la Famille</h3>
+          <span class="tag">Général</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <p>De l'enfant dès 3 ans à l'adulte senior, nous offrons un suivi dentaire complet adapté à chaque âge dans un environnement accueillant et bienveillant.</p>
+        <div class="card-details">
+          <div class="cd-item"><div class="cd-icon">👶</div><span>Âge minimum :</span><strong>Dès 3 ans</strong></div>
+          <div class="cd-item"><div class="cd-icon">📋</div><span>Suivi :</span><strong>Dossier familial</strong></div>
+          <div class="cd-item"><div class="cd-icon">🛡️</div><span>Assurance :</span><strong>Acceptée</strong></div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="price">Famille<span>Tarif selon soin</span></div>
+        <a href="rendez-vous.html" class="card-btn">Réserver →</a>
+      </div>
+    </div>
+
+    <!-- 11 -->
+    <div class="service-card cat-surgery reveal">
+      <div class="card-top">
+        <div class="card-icon">🚨</div>
+        <div class="card-title">
+          <h3>Urgences Dentaires</h3>
+          <span class="tag">Chirurgie</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <p>Douleur aiguë, dent cassée, abcès ou accident ? Notre équipe vous accueille en priorité pour soulager rapidement votre douleur et traiter l'urgence efficacement.</p>
+        <div class="card-details">
+          <div class="cd-item"><div class="cd-icon">⚡</div><span>Prise en charge :</span><strong>Prioritaire</strong></div>
+          <div class="cd-item"><div class="cd-icon">📞</div><span>Contact :</span><strong>4767-9797</strong></div>
+          <div class="cd-item"><div class="cd-icon">🛡️</div><span>Assurance :</span><strong>Selon couverture</strong></div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="price">Urgence<span>Appelez d'abord</span></div>
+        <a href="tel:47679797" class="card-btn">Appeler →</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-banner reveal">
+  <h2>Prêt à prendre soin de votre sourire ?</h2>
+  <p>Contactez-nous dès aujourd'hui ou réservez directement en ligne.</p>
+  <div class="actions">
+    <a href="rendez-vous.html" class="btn-white">📅 Prendre rendez-vous</a>
+    <a href="tel:47679797" class="btn-outline-w">📞 4767-9797</a>
+  </div>
+</div>
+
+<footer>
+  <div class="foot-logo">Clinique Dentaire 31</div>
+  <p style="font-size:0.75rem; margin-bottom: 8px;">2, impasse Chavanne, Fragneau ville Delmas 75</p>
+  <div class="foot-links">
+    <a href="index.html">Accueil</a>
+    <a href="a-propos.html">À propos</a>
+    <a href="rendez-vous.html">Rendez-vous</a>
+  </div>
+  <p>© 2026 Clinique Dentaire 31</p>
+</footer>
+
+<a href="https://wa.me/47679797" target="_blank" class="wa-float"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg></a>
+
+<script>
+  function toggleMenu() { document.getElementById('hamburger').classList.toggle('open'); document.getElementById('mobile-menu').classList.toggle('open'); }
+  function closeMenu() { document.getElementById('hamburger').classList.remove('open'); document.getElementById('mobile-menu').classList.remove('open'); }
+  function filterCards(cat, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.service-card').forEach(c => {
+      if (cat === 'all' || c.classList.contains(cat)) { c.style.display = ''; }
+      else { c.style.display = 'none'; }
+    });
+  }
+  const obs = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }), { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
