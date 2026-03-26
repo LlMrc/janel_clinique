@@ -449,6 +449,21 @@
       50% { box-shadow: 0 6px 32px rgba(37,211,102,0.75), 0 0 0 10px rgba(37,211,102,0.1); }
     }
 
+    /* ─── FOOTER ─── */
+    footer { background: #0a3d6b; color: white; padding: 60px 8%; display: flex; flex-direction: column; gap: 40px; }
+    .footer-top { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 30px; align-items: flex-start; }
+    .foot-logo { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: white; font-weight: 700; }
+    
+    .footer-partners { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 40px; }
+    .footer-partners h4 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; color: var(--gold); margin-bottom: 25px; text-align: center; opacity: 0.8; }
+    .partners-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+    .partner-card { background: rgba(255,255,255,0.03); border-radius: 18px; padding: 25px; border: 1px solid rgba(255,255,255,0.06); transition: all 0.3s ease; text-decoration: none; display: block; }
+    .partner-card:hover { transform: translateY(-5px); background: rgba(255,255,255,0.08); border-color: var(--blue-mid); box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+    .partner-card span { font-weight: 700; color: white; font-size: 1.1rem; display: block; margin-bottom: 10px; }
+    .partner-card p { font-size: 0.85rem; color: rgba(255,255,255,0.55); line-height: 1.6; margin: 0; }
+
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 25px; text-align: center; font-size: 0.8rem; color: rgba(255,255,255,0.4); }
+
     /* ─── RESPONSIVE ─── */
     @media (max-width: 900px) {
       nav { padding: 12px 20px; }
@@ -712,6 +727,35 @@
 
   </aside>
 </div>
+
+<footer>
+  <div class="footer-top">
+    <div class="foot-logo">Clinique Dentaire 31</div>
+    <p style="font-size:0.75rem; color:rgba(255,255,255,0.6);">2, impasse Chavanne, Fragneau ville Delmas 75</p>
+  </div>
+
+  <div class="footer-partners">
+    <h4>Nos Partenaires de Confiance</h4>
+    <div class="partners-grid">
+      <a href="https://hkonekte.com" target="_blank" class="partner-card">
+        <span>hkonekte.com</span>
+        <p>Un réseau de confiance regroupant des experts vérifiés à travers les dix départements. Connectez-vous pour vos projets dès aujourd'hui.</p>
+      </a>
+      <a href="https://zephservice.com" target="_blank" class="partner-card">
+        <span>ZEPH SERVICES</span>
+        <p>Expertise en graphisme, marketing stratégique et légalisation de documents pour entreprises et particuliers.</p>
+      </a>
+      <a href="https://haitiautotrust.com" target="_blank" class="partner-card">
+        <span>HaitiAutoTrust</span>
+        <p>La marketplace automobile de confiance en Haïti. Des véhicules inspectés, des papiers en règle et une transaction sécurisée.</p>
+      </a>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2026 Clinique Dentaire 31. Tous droits réservés.</p>
+  </div>
+</footer>
 
 <!-- SUCCESS OVERLAY -->
 <div class="success-overlay" id="success-overlay">
